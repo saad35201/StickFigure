@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="tv_heading">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/lato_bold</item>
+        <item name="android:textSize">@dimen/_18sdp</item>
+        <item name="android:textColor">@color/app_black</item>
+    </style>
+
+    <style name="tv_sub_heading" parent="tv_heading">
+        <item name="android:textSize">@dimen/_14sdp</item>
+    </style>
+
+    <style name="tv_body">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/lato_regular</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+    </style>
+
+    <style name="tv_body_black" parent="tv_body">
+        <item name="android:textColor">@color/app_black</item>
+    </style>
+
+    <style name="tv_body_gray" parent="tv_body">
+        <item name="android:textColor">@color/app_gray_dark</item>
+    </style>
+
+</resources>
