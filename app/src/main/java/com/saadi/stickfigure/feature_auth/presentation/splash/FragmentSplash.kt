@@ -42,4 +42,19 @@ class FragmentSplash : Fragment() {
 
     }
 
+    override fun onDetach() {
+        super.onDetach()
+
+        //full screen
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            requireActivity().window.insetsController?.show(WindowInsets.Type.statusBars())
+        } else {
+            requireActivity().window.clearFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
+
+    }
+
 }

@@ -9,8 +9,9 @@
     <color name="white">#FFFFFFFF</color>
 
     //app color's
-    <color name="app_black">#242424</color>
-    <color name="app_gray_light">#E9E9E9</color>
-    <color name="app_gray_dark">#A3A3A3</color>
+    <color name="app_black">#191919</color>
+    <color name="app_gray_light">#E6E6E6</color>
+    <color name="gray_ripple">#BFBFBF</color>
+    <color name="app_gray_dark">#6E6E6E</color>
 
 </resources>
