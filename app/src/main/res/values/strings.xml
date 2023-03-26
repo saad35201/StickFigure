@@ -17,4 +17,14 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="sign_up">Sign Up</string>
     <string name="already_have_an_account_sign_in">Already have an account? <b>Sign In</b></string>
+    <string name="forgot_password_cap">FORGOT PASSWORD</string>
+    <string name="you_will_get_an_verification_code_at_your_email_address">You will get an verification code at your \nemail address</string>
+    <string name="get_code">Get Code</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="reset_password">RESET PASSWORD</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="enter_your_new_password">Enter Your New Password</string>
+    <string name="re_enter_password">Re-Enter Password</string>
+    <string name="submit">Submit</string>
 </resources>

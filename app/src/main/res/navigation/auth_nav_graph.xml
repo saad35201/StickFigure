@@ -33,10 +33,19 @@
         android:id="@+id/fragmentForgotPassword"
         android:name="com.saadi.stickfigure.feature_auth.presentation.forgot_password.FragmentForgotPassword"
         android:label="fragment_forgot_password"
-        tools:layout="@layout/fragment_forgot_password" />
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_fragmentForgotPassword_to_fragmentResetPassword"
+            app:destination="@id/fragmentResetPassword" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentSignUp"
         android:name="com.saadi.stickfigure.feature_auth.presentation.sign_up.FragmentSignUp"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" />
+    <fragment
+        android:id="@+id/fragmentResetPassword"
+        android:name="com.saadi.stickfigure.feature_auth.presentation.reset_password.FragmentResetPassword"
+        android:label="fragment_reset_password"
+        tools:layout="@layout/fragment_reset_password" />
 </navigation>
