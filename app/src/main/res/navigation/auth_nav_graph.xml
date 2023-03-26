@@ -21,5 +21,22 @@
         android:id="@+id/fragmentSignIn"
         android:name="com.saadi.stickfigure.feature_auth.presentation.sign_in.FragmentSignIn"
         android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" />
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_fragmentSignIn_to_fragmentForgotPassword"
+            app:destination="@id/fragmentForgotPassword" />
+        <action
+            android:id="@+id/action_fragmentSignIn_to_fragmentSignUp"
+            app:destination="@id/fragmentSignUp" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentForgotPassword"
+        android:name="com.saadi.stickfigure.feature_auth.presentation.forgot_password.FragmentForgotPassword"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" />
+    <fragment
+        android:id="@+id/fragmentSignUp"
+        android:name="com.saadi.stickfigure.feature_auth.presentation.sign_up.FragmentSignUp"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
 </navigation>

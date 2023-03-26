@@ -31,7 +31,7 @@
     <style name="et_gray">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/_40ssp</item>
-        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textSize">@dimen/_11ssp</item>
         <item name="android:layout_marginStart">@dimen/_30ssp</item>
         <item name="android:layout_marginEnd">@dimen/_30ssp</item>
         <item name="android:background">@drawable/gray_round_corners_bg</item>

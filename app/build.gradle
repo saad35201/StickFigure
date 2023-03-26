@@ -111,4 +111,7 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
+    //ccp
+    implementation 'com.hbb20:ccp:2.7.0'
+
 }
