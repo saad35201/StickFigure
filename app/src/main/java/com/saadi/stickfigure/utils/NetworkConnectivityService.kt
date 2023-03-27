@@ -1,4 +1,4 @@
-package com.saad.homeflix.utils
+package com.saadi.stickfigure.utils
 
 import android.content.Context
 import android.net.ConnectivityManager

@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.snackbar.Snackbar
 import com.saadi.stickfigure.R
+import com.saadi.stickfigure.databinding.ProgressDialogBinding
 
 
 fun View.showKeyboard() {
@@ -123,12 +124,12 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
 //        .placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(this)
 
 
-//fun Context.progressDialog(): Dialog {
-//    val binding = ProgressDialogBinding.inflate(LayoutInflater.from(this))
-//    val dialog = Dialog(this)
-//    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//    dialog.setCancelable(false)
-//    dialog.setContentView(binding.root)
-//    return dialog
-//}
+fun Context.progressDialog(): Dialog {
+    val binding = ProgressDialogBinding.inflate(LayoutInflater.from(this))
+    val dialog = Dialog(this)
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    dialog.setCancelable(false)
+    dialog.setContentView(binding.root)
+    return dialog
+}

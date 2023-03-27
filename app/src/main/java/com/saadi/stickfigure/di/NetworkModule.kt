@@ -1,6 +1,6 @@
 package com.saadi.stickfigure.di
 
-import com.saad.homeflix.utils.NetworkConnectivityService
+import com.saadi.stickfigure.utils.NetworkConnectivityService
 import com.saadi.stickfigure.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -26,6 +26,8 @@ object NetworkModule {
         return Interceptor {
             val request = it.request().newBuilder()
             /*here we can add headers for all api call by adding request.addHeader()*/
+            request.addHeader("Accept","application/json")
+            request.addHeader("Device-id","alsdkfjasdfasdfasdfasdfas")
             val actualRequest = request.build()
             if (!NetworkConnectivityService.instance.isOnline()) {
                 throw IOException("No internet connection")
@@ -69,20 +71,5 @@ object NetworkModule {
             .client(client)
             .build()
     }
-
-    //services
-
-//    @Singleton
-//    @Provides
-//    fun provideMoviesApiService(retrofit: Retrofit): MoviesApiService {
-//        return retrofit.create(MoviesApiService::class.java)
-//    }
-//
-//    @Singleton
-//    @Provides
-//    fun provideAuthApiService(retrofit: Retrofit): AuthApiService {
-//        return retrofit.create(AuthApiService::class.java)
-//    }
-
 
 }
