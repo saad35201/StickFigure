@@ -1,8 +1,8 @@
-package com.saadi.stickfigure.feature_auth.domain.model.login
+package com.saadi.stickfigure.feature_auth.domain.model.sign_in
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class LoginRequest(
+data class SignInRequest(
 
 	@field:JsonProperty("password")
 	val password: String? = null,

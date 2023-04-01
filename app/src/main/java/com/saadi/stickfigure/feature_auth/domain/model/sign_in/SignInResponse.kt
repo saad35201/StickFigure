@@ -1,8 +1,8 @@
-package com.saadi.stickfigure.feature_auth.domain.model.login
+package com.saadi.stickfigure.feature_auth.domain.model.sign_in
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class LoginResponse(
+data class SignInResponse(
 
 	@field:JsonProperty("user")
 	val user: User? = null,

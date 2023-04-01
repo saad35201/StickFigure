@@ -99,6 +99,9 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
+    // Preferences DataStore
+    implementation "androidx.datastore:datastore-preferences:1.1.0-alpha03"
+
     //pagination
     def paging_version = "3.1.1"
     implementation "androidx.paging:paging-runtime-ktx:$paging_version"
@@ -113,5 +116,15 @@ dependencies {
 
     //ccp
     implementation 'com.hbb20:ccp:2.7.0'
+
+    //circular imageview
+    implementation 'com.mikhaellopez:circularimageview:4.3.1'
+
+    //image picker
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+
+    //phone validation
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.32'
+
 
 }

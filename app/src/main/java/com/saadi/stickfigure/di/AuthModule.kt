@@ -4,7 +4,8 @@ import com.saadi.stickfigure.feature_auth.data.data_source.AuthService
 import com.saadi.stickfigure.feature_auth.data.repository.AuthRepositoryImp
 import com.saadi.stickfigure.feature_auth.domain.repository.AuthRepository
 import com.saadi.stickfigure.feature_auth.domain.usecase.AuthUseCases
-import com.saadi.stickfigure.feature_auth.domain.usecase.Login
+import com.saadi.stickfigure.feature_auth.domain.usecase.SignIn
+import com.saadi.stickfigure.feature_auth.domain.usecase.SignUp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,7 +33,8 @@ object AuthModule {
     @Singleton
     fun providesAuthUseCases(repository: AuthRepository): AuthUseCases{
         return AuthUseCases(
-           login = Login(repository = repository)
+           signIn = SignIn(repository = repository),
+           signUp = SignUp(repository = repository)
         )
     }
 

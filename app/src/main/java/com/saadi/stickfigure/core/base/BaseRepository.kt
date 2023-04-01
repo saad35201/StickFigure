@@ -1,4 +1,4 @@
-package com.saadi.stickfigure.core
+package com.saadi.stickfigure.core.base
 
 import com.saadi.stickfigure.utils.NetworkResult
 import okio.IOException

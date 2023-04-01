@@ -11,16 +11,17 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.FragmentSignInBinding
-import com.saadi.stickfigure.feature_auth.domain.model.login.LoginRequest
-import com.saadi.stickfigure.feature_auth.domain.model.login.LoginResponse
+import com.saadi.stickfigure.feature_auth.domain.model.sign_in.SignInRequest
+import com.saadi.stickfigure.feature_auth.domain.model.sign_in.SignInResponse
 import com.saadi.stickfigure.utils.NetworkResult
 import com.saadi.stickfigure.utils.observe
 import com.saadi.stickfigure.utils.progressDialog
 import com.saadi.stickfigure.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class FragmentSignIn : Fragment() {
+class FragmentSignIn @Inject constructor() : Fragment() {
 
     private val mSignInVm by viewModels<VmSignIn>()
     private lateinit var mBinding: FragmentSignInBinding
@@ -47,7 +48,7 @@ class FragmentSignIn : Fragment() {
         }
 
         mBinding.btnSignIn.setOnClickListener {
-            val request = LoginRequest(
+            val request = SignInRequest(
                 mBinding.etPassword.text.toString(),
                 mBinding.etEmailOrUsername.text.toString()
             )
@@ -63,7 +64,7 @@ class FragmentSignIn : Fragment() {
 
     }
 
-    private fun handleSignIn(networkResult: NetworkResult<LoginResponse>) {
+    private fun handleSignIn(networkResult: NetworkResult<SignInResponse>) {
         mProgressDialog.dismiss()
         when (networkResult) {
             is NetworkResult.Error -> {
@@ -79,6 +80,11 @@ class FragmentSignIn : Fragment() {
             }
         }
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mSignInVm.clear()
     }
 
 }
