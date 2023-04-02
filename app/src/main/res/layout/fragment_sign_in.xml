@@ -1,11 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".feature_auth.presentation.sign_in.FragmentSignIn">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_welcome"
+            app:layout_constraintBottom_toTopOf="@id/tv_sign_in"
+            app:layout_constraintStart_toStartOf="@id/tv_sign_in" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_sign_in"
+            style="@style/tv_heading"
+            android:layout_marginStart="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_120sdp"
+            android:text="@string/sign_in_to_account"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_email_or_username"
+            style="@style/et_gray"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:hint="@string/email_or_username"
+            android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_sign_in" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/et_password"
+            style="@style/et_gray"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_email_or_username" />
+
+        <TextView
+            android:id="@+id/tv_forgot_password"
+            style="@style/tv_body_black"
+            android:text="@string/forgot_password"
+            app:layout_constraintBottom_toBottomOf="@+id/rb_remember_me"
+            app:layout_constraintEnd_toEndOf="@+id/et_password"
+            app:layout_constraintTop_toTopOf="@+id/rb_remember_me" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/rb_remember_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/remember_me"
+            android:textSize="@dimen/_12ssp"
+            app:buttonTint="@color/app_black"
+            app:layout_constraintStart_toStartOf="@+id/et_password"
+            app:layout_constraintTop_toBottomOf="@+id/et_password" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_sign_in"
+            style="@style/stroke_btn"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:text="@string/sign_in"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rb_remember_me" />
+
+        <TextView
+            android:id="@+id/tv_or"
+            style="@style/tv_body_gray"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/or"
+            app:layout_constraintEnd_toEndOf="@id/btn_sign_in"
+            app:layout_constraintStart_toStartOf="@id/btn_sign_in"
+            app:layout_constraintTop_toBottomOf="@id/btn_sign_in" />
+
+        <ImageView
+            android:id="@+id/iv_facebook"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_facebook"
+            app:layout_constraintEnd_toEndOf="@id/tv_or"
+            app:layout_constraintStart_toStartOf="@id/tv_or"
+            app:layout_constraintTop_toBottomOf="@id/tv_or" />
+
+        <ImageView
+            android:id="@+id/iv_google"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginEnd="@dimen/_25sdp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_google"
+            app:layout_constraintBottom_toBottomOf="@id/iv_facebook"
+            app:layout_constraintEnd_toStartOf="@id/iv_facebook"
+            app:layout_constraintTop_toTopOf="@id/iv_facebook" />
+
+        <ImageView
+            android:id="@+id/iv_instagram"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_25sdp"
+            android:importantForAccessibility="no"
+            android:src="@drawable/ic_instagram"
+            app:layout_constraintBottom_toBottomOf="@id/iv_facebook"
+            app:layout_constraintStart_toEndOf="@id/iv_facebook"
+            app:layout_constraintTop_toTopOf="@id/iv_facebook" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_sign_up"
+            style="@style/tv_body_gray"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginBottom="@dimen/_40sdp"
+            android:text="@string/don_t_have_an_account_sign_up"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_facebook" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

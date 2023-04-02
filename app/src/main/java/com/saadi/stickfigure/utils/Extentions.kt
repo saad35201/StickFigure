@@ -1,27 +1,42 @@
 package com.saadi.stickfigure.utils
 
+import android.app.Activity
 import android.app.Dialog
 import android.app.Service
+import android.content.ContentResolver
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.annotation.DrawableRes
+import androidx.activity.result.ActivityResultLauncher
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
+import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.saadi.stickfigure.R
+import com.saadi.stickfigure.databinding.ProgressDialogBinding
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.File
+import java.io.IOException
+import java.util.regex.Pattern
 
 
 fun View.showKeyboard() {
@@ -123,12 +138,83 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
 //        .placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(this)
 
 
-//fun Context.progressDialog(): Dialog {
-//    val binding = ProgressDialogBinding.inflate(LayoutInflater.from(this))
-//    val dialog = Dialog(this)
-//    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-//    dialog.setCancelable(false)
-//    dialog.setContentView(binding.root)
-//    return dialog
-//}
+fun Context.progressDialog(): Dialog {
+    val binding = ProgressDialogBinding.inflate(LayoutInflater.from(this))
+    val dialog = Dialog(this)
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    dialog.setCancelable(false)
+    dialog.setContentView(binding.root)
+    return dialog
+}
+
+fun Activity.imagePicker(startImageResult: ActivityResultLauncher<Intent>){
+    ImagePicker.with(this)
+        .crop()
+        .maxResultSize(1080, 1080)
+        .createIntent { intent ->
+            startImageResult.launch(intent)
+        }
+}
+
+fun String.isValidEmailAddress(): Boolean{
+    val emailPattern = Pattern.compile(
+        "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                "\\@" +
+                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                "(" +
+                "\\." +
+                "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                ")+"
+    )
+
+    return emailPattern.matcher(this).matches()
+}
+
+fun String.isValidName(): Boolean{
+    val regex = Regex("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*\$")
+    return regex.matches(this)
+}
+
+fun String.isValidNumber(): Boolean{
+    val phoneNumberUtil = PhoneNumberUtil.getInstance()
+    return try {
+        val phoneNumber = phoneNumberUtil.parse(this, null)
+        phoneNumberUtil.isValidNumber(phoneNumber)
+    } catch (e: Exception) {
+        false
+    }
+}
+
+fun Uri.toMultipartFile(contentResolver: ContentResolver, paramName: String): MultipartBody.Part? {
+    val inputStream = contentResolver.openInputStream(this) ?: return null
+    val file = File(this.path!!)
+    try {
+        file.createNewFile()
+        file.outputStream().use { inputStream.copyTo(it) }
+    } catch (e: IOException) {
+        e.printStackTrace()
+    }
+
+    val requestFile =
+        file.asRequestBody((contentResolver.getType(this) ?: "application/octet-stream").toMediaTypeOrNull())
+    return MultipartBody.Part.createFormData(paramName, file.name, requestFile)
+}
+
+fun String.toJsonObject(): JSONObject? {
+    return try {
+        JSONObject(this)
+    } catch (e: JSONException) {
+        e.printStackTrace()
+        null
+    }
+}
+
+fun JSONObject.toStringOrNull(): String? {
+    return try {
+        toString()
+    } catch (e: JSONException) {
+        e.printStackTrace()
+        null
+    }
+}

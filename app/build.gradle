@@ -33,8 +33,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_9
+        targetCompatibility JavaVersion.VERSION_1_9
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -53,6 +53,7 @@ dependencies {
 
     //screen adjustment lib
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
+    implementation 'com.intuit.ssp:ssp-android:1.1.0'
 
     //Material Design
     implementation 'com.google.android.material:material:1.8.0'
@@ -75,10 +76,10 @@ dependencies {
     //Navigation Components
     implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
     implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
-    implementation "androidx.fragment:fragment-ktx:1.5.5"
+    implementation "androidx.fragment:fragment-ktx:1.5.6"
 
     //Room DB
-    def room_version = "2.5.0"
+    def room_version = "2.5.1"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
@@ -89,7 +90,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
     //LiveData and ViewModel
-    def lifecycle_version = "2.6.0"
+    def lifecycle_version = "2.6.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
@@ -97,6 +98,9 @@ dependencies {
     def hilt_version = "2.44"
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    // Preferences DataStore
+    implementation "androidx.datastore:datastore-preferences:1.1.0-alpha03"
 
     //pagination
     def paging_version = "3.1.1"
@@ -109,5 +113,18 @@ dependencies {
     def glide_version = "4.14.2"
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+
+    //ccp
+    implementation 'com.hbb20:ccp:2.7.0'
+
+    //circular imageview
+    implementation 'com.mikhaellopez:circularimageview:4.3.1'
+
+    //image picker
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+
+    //phone validation
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.32'
+
 
 }

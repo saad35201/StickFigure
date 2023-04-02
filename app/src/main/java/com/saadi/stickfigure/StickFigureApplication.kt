@@ -1,7 +1,7 @@
 package com.saadi.stickfigure
 
 import android.app.Application
-import com.saad.homeflix.utils.NetworkConnectivityService
+import com.saadi.stickfigure.utils.NetworkConnectivityService
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp

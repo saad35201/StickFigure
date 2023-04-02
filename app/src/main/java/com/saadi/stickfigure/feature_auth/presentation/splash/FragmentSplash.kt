@@ -6,11 +6,19 @@ import android.os.Handler
 import android.os.Looper
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.saadi.stickfigure.R
 import com.saadi.stickfigure.utils.Constants
+import com.saadi.stickfigure.utils.observe
+import com.saadi.stickfigure.utils.showSnackBar
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FragmentSplash : Fragment() {
+
+    private lateinit var mHandler: Handler
+    private val mSplashVm by viewModels<VmSplash>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,11 +42,41 @@ class FragmentSplash : Fragment() {
             )
         }
 
+        //getting session
+        mSplashVm.getSession()
 
-        //Splash timer
-        Handler(Looper.getMainLooper()).postDelayed({
-            findNavController().navigate(R.id.action_fragmentSplash_to_fragmentSignIn)
-        }, Constants.SPLASH_DELAY.toLong())
+        //observing sign in LiveData
+        viewLifecycleOwner.observe(mSplashVm.sessionLiveData) {
+            if (it){
+                requireView().showSnackBar("Remembered and logged in",3000)
+                //Splash timer
+                mHandler = Handler(Looper.getMainLooper())
+                mHandler.postDelayed({
+                    findNavController().navigate(R.id.action_fragmentSplash_to_fragmentSignIn)
+                }, Constants.SPLASH_DELAY.toLong())
+            }else{
+                //Splash timer
+                mHandler = Handler(Looper.getMainLooper())
+                mHandler.postDelayed({
+                    findNavController().navigate(R.id.action_fragmentSplash_to_fragmentSignIn)
+                }, Constants.SPLASH_DELAY.toLong())
+            }
+        }
+    }
+
+
+    override fun onDetach() {
+        super.onDetach()
+
+        //full screen
+        @Suppress("DEPRECATION")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            requireActivity().window.insetsController?.show(WindowInsets.Type.statusBars())
+        } else {
+            requireActivity().window.clearFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+        }
 
     }
 
