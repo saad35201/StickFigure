@@ -8,29 +8,32 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.i18n.phonenumbers.PhoneNumberUtil
-import com.hbb20.CountryCodePicker
-import com.saadi.stickfigure.StickFigureApplication
+import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.ProgressDialogBinding
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
+import org.json.JSONException
+import org.json.JSONObject
 import java.io.File
 import java.io.IOException
 import java.util.regex.Pattern
@@ -196,4 +199,22 @@ fun Uri.toMultipartFile(contentResolver: ContentResolver, paramName: String): Mu
     val requestFile =
         file.asRequestBody((contentResolver.getType(this) ?: "application/octet-stream").toMediaTypeOrNull())
     return MultipartBody.Part.createFormData(paramName, file.name, requestFile)
+}
+
+fun String.toJsonObject(): JSONObject? {
+    return try {
+        JSONObject(this)
+    } catch (e: JSONException) {
+        e.printStackTrace()
+        null
+    }
+}
+
+fun JSONObject.toStringOrNull(): String? {
+    return try {
+        toString()
+    } catch (e: JSONException) {
+        e.printStackTrace()
+        null
+    }
 }

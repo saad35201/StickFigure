@@ -1,10 +1,12 @@
 package com.saadi.stickfigure.core.data_store
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStoreFile
 import com.saadi.stickfigure.utils.Constants
+import com.saadi.stickfigure.utils.Constants.TAG
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
@@ -17,11 +19,26 @@ class DataStoreManager constructor(context: Context) {
     suspend fun save(key: String, value: Any?) {
         dataStore.edit { preferences ->
             when (value) {
-                is String -> preferences[stringPreferencesKey(key)] = value
-                is Int -> preferences[intPreferencesKey(key)] = value
-                is Long -> preferences[longPreferencesKey(key)] = value
-                is Float -> preferences[floatPreferencesKey(key)] = value
-                is Boolean -> preferences[booleanPreferencesKey(key)] = value
+                is String -> {
+                    preferences[stringPreferencesKey(key)] = value
+                    Log.e(TAG, "String saved: $value")
+                }
+                is Int -> {
+                    preferences[intPreferencesKey(key)] = value
+                    Log.e(TAG, "Integer saved: $value")
+                }
+                is Long -> {
+                    preferences[longPreferencesKey(key)] = value
+                    Log.e(TAG, "Long saved: $value")
+                }
+                is Float -> {
+                    preferences[floatPreferencesKey(key)] = value
+                    Log.e(TAG, "Float saved: $value")
+                }
+                is Boolean -> {
+                    preferences[booleanPreferencesKey(key)] = value
+                    Log.e(TAG, "Boolean saved: $value")
+                }
                 else -> throw IllegalArgumentException("Unsupported preference type")
             }
         }
@@ -51,9 +68,9 @@ class DataStoreManager constructor(context: Context) {
         }
     }
 
-    fun getBoolean(key: String, defaultValue: Boolean): Flow<Boolean> {
+    fun getBoolean(key: String): Flow<Boolean> {
         return dataStore.data.map { preferences ->
-            preferences[booleanPreferencesKey(key)] ?: defaultValue
+            preferences[booleanPreferencesKey(key)] ?: false
         }
     }
 

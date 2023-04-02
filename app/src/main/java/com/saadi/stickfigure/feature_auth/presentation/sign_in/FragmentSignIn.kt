@@ -18,10 +18,9 @@ import com.saadi.stickfigure.utils.observe
 import com.saadi.stickfigure.utils.progressDialog
 import com.saadi.stickfigure.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class FragmentSignIn @Inject constructor() : Fragment() {
+class FragmentSignIn : Fragment() {
 
     private val mSignInVm by viewModels<VmSignIn>()
     private lateinit var mBinding: FragmentSignInBinding
@@ -42,6 +41,10 @@ class FragmentSignIn @Inject constructor() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //test
+        mBinding.etEmailOrUsername.setText("user2@stickfigure.com")
+        mBinding.etPassword.setText("11223344")
 
         mBinding.tvForgotPassword.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentSignIn_to_fragmentForgotPassword)
@@ -76,7 +79,18 @@ class FragmentSignIn @Inject constructor() : Fragment() {
                 mProgressDialog.show()
             }
             is NetworkResult.Success -> {
-                mBinding.root.showSnackBar(message = "saving data", 3000)
+                networkResult.data?.let {
+                    //saving data in datastore
+                    mSignInVm.saveUser(it.user!!)
+                    mSignInVm.saveToken(it.token!!)
+                    if (mBinding.rbRememberMe.isChecked){
+                        mSignInVm.saveIsLoggedIn(isLoggedIn = true)
+                        mSignInVm.saveRememberMe(rememberMe = true)
+                    }else{
+                        mSignInVm.saveIsLoggedIn(isLoggedIn = false)
+                        mSignInVm.saveRememberMe(rememberMe = false)
+                    }
+                }
             }
         }
 

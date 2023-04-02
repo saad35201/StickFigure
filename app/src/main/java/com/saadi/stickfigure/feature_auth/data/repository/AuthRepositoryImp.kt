@@ -20,9 +20,14 @@ class AuthRepositoryImp(
     override suspend fun signUp(signUpRequest: SignUpRequest): NetworkResult<SignInResponse> {
         return safeApiCall {
             authService.signUp(
-                signUpRequest.profilePic!!,
-                signUpRequest.username!!
-            )
+                profilePic = signUpRequest.profilePic!!,
+                username = signUpRequest.username!!,
+                name = "${signUpRequest.firstName} ${signUpRequest.lastName}",
+                email = signUpRequest.email!!,
+                phoneNo = signUpRequest.phoneNumber!!,
+                password = signUpRequest.password!!,
+                passwordConfirmation = signUpRequest.passwordConfirmation!!
+                )
         }
     }
 

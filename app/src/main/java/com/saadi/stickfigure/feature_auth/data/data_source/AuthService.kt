@@ -23,7 +23,12 @@ interface AuthService {
     @POST("/api/v1/register")
     suspend fun signUp(
         @Field("profile_pic") profilePic: MultipartBody.Part,
-        @Field("username") username: String
+        @Field("user_name") username: String,
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("phone") phoneNo: String,
+        @Field("password") password: String,
+        @Field("password_confirmation") passwordConfirmation: String,
     ): Response<SignInResponse>
 
 }
