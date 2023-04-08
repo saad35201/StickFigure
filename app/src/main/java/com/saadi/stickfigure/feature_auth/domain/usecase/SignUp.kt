@@ -4,6 +4,7 @@ import android.content.Context
 import com.hbb20.CountryCodePicker
 import com.saadi.stickfigure.feature_auth.domain.model.sign_in.SignInResponse
 import com.saadi.stickfigure.feature_auth.domain.model.sign_up.SignUpRequest
+import com.saadi.stickfigure.feature_auth.domain.model.sign_up.SignUpResponse
 import com.saadi.stickfigure.feature_auth.domain.repository.AuthRepository
 import com.saadi.stickfigure.utils.NetworkResult
 import com.saadi.stickfigure.utils.isValidEmailAddress
@@ -16,7 +17,7 @@ class SignUp(
 ) {
 
 
-    suspend operator fun invoke(request: SignUpRequest): NetworkResult<SignInResponse> {
+    suspend operator fun invoke(request: SignUpRequest): NetworkResult<SignUpResponse> {
         if (request.profilePic == null) {
             return NetworkResult.Error("Please select profile picture")
         }

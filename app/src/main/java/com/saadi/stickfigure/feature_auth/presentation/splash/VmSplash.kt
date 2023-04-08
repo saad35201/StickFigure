@@ -20,9 +20,11 @@ class VmSplash @Inject constructor(
         viewModelScope.launch {
             userDataStore.getIsRememberMe().asLiveData().observeForever { isRememberMe ->
                 if (isRememberMe == true){
-                    userDataStore.getIsLoggedIn().asLiveData().observeForever { isLoggedIn ->
-                        if (isLoggedIn == true){
-                            mSessionLiveData.postValue(true)
+                    viewModelScope.launch {
+                        userDataStore.getIsLoggedIn().asLiveData().observeForever { isLoggedIn ->
+                            if (isLoggedIn == true) {
+                                mSessionLiveData.postValue(true)
+                            }
                         }
                     }
                 } else {

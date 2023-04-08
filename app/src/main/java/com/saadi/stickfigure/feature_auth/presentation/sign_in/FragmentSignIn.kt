@@ -2,6 +2,7 @@ package com.saadi.stickfigure.feature_auth.presentation.sign_in
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.saadi.stickfigure.Home
 import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.FragmentSignInBinding
 import com.saadi.stickfigure.feature_auth.domain.model.sign_in.SignInRequest
@@ -43,8 +45,8 @@ class FragmentSignIn : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //test
-        mBinding.etEmailOrUsername.setText("user2@stickfigure.com")
-        mBinding.etPassword.setText("11223344")
+        mBinding.etEmailOrUsername.setText("stickfiguretest@gmail.com")
+        mBinding.etPassword.setText("qwerty123")
 
         mBinding.tvForgotPassword.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentSignIn_to_fragmentForgotPassword)
@@ -90,6 +92,8 @@ class FragmentSignIn : Fragment() {
                         mSignInVm.saveIsLoggedIn(isLoggedIn = false)
                         mSignInVm.saveRememberMe(rememberMe = false)
                     }
+                    startActivity(Intent(activity,Home::class.java))
+                    activity?.finish()
                 }
             }
         }

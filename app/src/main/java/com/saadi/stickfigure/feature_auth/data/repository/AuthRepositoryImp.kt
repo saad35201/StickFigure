@@ -5,8 +5,11 @@ import com.saadi.stickfigure.feature_auth.data.data_source.AuthService
 import com.saadi.stickfigure.feature_auth.domain.model.sign_in.SignInRequest
 import com.saadi.stickfigure.feature_auth.domain.model.sign_in.SignInResponse
 import com.saadi.stickfigure.feature_auth.domain.model.sign_up.SignUpRequest
+import com.saadi.stickfigure.feature_auth.domain.model.sign_up.SignUpResponse
 import com.saadi.stickfigure.feature_auth.domain.repository.AuthRepository
 import com.saadi.stickfigure.utils.NetworkResult
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class AuthRepositoryImp(
 
@@ -17,16 +20,16 @@ class AuthRepositoryImp(
         return safeApiCall { authService.signIn(signInRequest) }
     }
 
-    override suspend fun signUp(signUpRequest: SignUpRequest): NetworkResult<SignInResponse> {
+    override suspend fun signUp(signUpRequest: SignUpRequest): NetworkResult<SignUpResponse> {
         return safeApiCall {
             authService.signUp(
                 profilePic = signUpRequest.profilePic!!,
-                username = signUpRequest.username!!,
-                name = "${signUpRequest.firstName} ${signUpRequest.lastName}",
-                email = signUpRequest.email!!,
-                phoneNo = signUpRequest.phoneNumber!!,
-                password = signUpRequest.password!!,
-                passwordConfirmation = signUpRequest.passwordConfirmation!!
+                username = signUpRequest.username!!.toRequestBody(MultipartBody.FORM),
+                name = "${signUpRequest.firstName} ${signUpRequest.lastName}".toRequestBody(MultipartBody.FORM),
+                email = signUpRequest.email!!.toRequestBody(MultipartBody.FORM),
+                phoneNo = signUpRequest.phoneNumber!!.toRequestBody(MultipartBody.FORM),
+                password = signUpRequest.password!!.toRequestBody(MultipartBody.FORM),
+                passwordConfirmation = signUpRequest.passwordConfirmation!!.toRequestBody(MultipartBody.FORM)
                 )
         }
     }

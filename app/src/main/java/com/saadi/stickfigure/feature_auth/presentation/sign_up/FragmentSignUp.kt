@@ -5,6 +5,8 @@ import android.app.Dialog
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +16,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.FragmentSignUpBinding
 import com.saadi.stickfigure.feature_auth.domain.model.sign_in.SignInResponse
 import com.saadi.stickfigure.feature_auth.domain.model.sign_up.SignUpRequest
+import com.saadi.stickfigure.feature_auth.domain.model.sign_up.SignUpResponse
 import com.saadi.stickfigure.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -80,7 +84,7 @@ class FragmentSignUp : Fragment() {
         mBinding.btnSignUp.setOnClickListener {
             mSignUpVm.signUp(
                 SignUpRequest(
-                    profilePic = context?.let { it1 -> profileImageUri?.toMultipartFile(it1.contentResolver,"profile") },
+                    profilePic = context?.let { it1 -> profileImageUri?.toMultipartData(it1.contentResolver,"profile") },
                     username = mBinding.etUsername.text.toString(),
                     firstName = mBinding.etFirstName.text.toString(),
                     lastName = mBinding.etLastName.text.toString(),
@@ -101,11 +105,11 @@ class FragmentSignUp : Fragment() {
 
     }
 
-    private fun handleSignUp(networkResult: NetworkResult<SignInResponse>) {
+    private fun handleSignUp(result: NetworkResult<SignUpResponse>) {
         mProgressDialog.dismiss()
-        when (networkResult) {
+        when (result) {
             is NetworkResult.Error -> {
-                networkResult.message?.let {
+                result.message?.let {
                     mBinding.root.showSnackBar(message = it, 3000)
                 }
             }
@@ -113,7 +117,10 @@ class FragmentSignUp : Fragment() {
                 mProgressDialog.show()
             }
             is NetworkResult.Success -> {
-                mBinding.root.showSnackBar(message = "saving data", 3000)
+                mBinding.root.showSnackBar(result.data?.message!!,Constants.SPLASH_DELAY)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    findNavController().navigateUp()
+                }, Constants.SPLASH_DELAY.toLong())
             }
         }
     }

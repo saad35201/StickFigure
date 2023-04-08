@@ -3,12 +3,12 @@ package com.saadi.stickfigure.core.data_store
 import android.content.Context
 import android.util.Log
 import androidx.datastore.core.DataStore
+import androidx.datastore.core.IOException
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStoreFile
 import com.saadi.stickfigure.utils.Constants
 import com.saadi.stickfigure.utils.Constants.TAG
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 
 class DataStoreManager constructor(context: Context) {
 
@@ -16,7 +16,7 @@ class DataStoreManager constructor(context: Context) {
         context.applicationContext.preferencesDataStoreFile(Constants.DataStore)
     }
 
-    suspend fun save(key: String, value: Any?) {
+    suspend fun saveData(key: String, value: Any?) {
         dataStore.edit { preferences ->
             when (value) {
                 is String -> {
@@ -44,33 +44,23 @@ class DataStoreManager constructor(context: Context) {
         }
     }
 
-    fun getString(key: String, defaultValue: String?): Flow<String?> {
-        return dataStore.data.map { preferences ->
-            preferences[stringPreferencesKey(key)] ?: defaultValue
+    suspend fun <T> getData(key: String, defaultValue: T): Flow<T> = flow {
+        val preferencesKey = when (defaultValue) {
+            is String -> stringPreferencesKey(key)
+            is Int -> intPreferencesKey(key)
+            is Long -> longPreferencesKey(key)
+            is Float -> floatPreferencesKey(key)
+            is Boolean -> booleanPreferencesKey(key)
+            else -> throw IllegalArgumentException("Unsupported preference type")
         }
-    }
-
-    fun getInt(key: String, defaultValue: Int): Flow<Int> {
-        return dataStore.data.map { preferences ->
-            preferences[intPreferencesKey(key)] ?: defaultValue
-        }
-    }
-
-    fun getLong(key: String, defaultValue: Long): Flow<Long> {
-        return dataStore.data.map { preferences ->
-            preferences[longPreferencesKey(key)] ?: defaultValue
-        }
-    }
-
-    fun getFloat(key: String, defaultValue: Float): Flow<Float> {
-        return dataStore.data.map { preferences ->
-            preferences[floatPreferencesKey(key)] ?: defaultValue
-        }
-    }
-
-    fun getBoolean(key: String): Flow<Boolean> {
-        return dataStore.data.map { preferences ->
-            preferences[booleanPreferencesKey(key)] ?: false
+        val preferences = dataStore.data.first()
+        val value = preferences[preferencesKey] ?: defaultValue
+        emit(value as T)
+    }.catch { exception ->
+        if (exception is IOException) {
+            emit(defaultValue)
+        } else {
+            throw exception
         }
     }
 
