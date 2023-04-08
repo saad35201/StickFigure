@@ -10,35 +10,35 @@ class UserDataStore(
 ) {
 
     suspend fun saveUser(user: User){
-        manager.save(UserEnum.USER.name,user.toString())
+        manager.saveData(UserEnum.USER.name,user.toString())
     }
 
     suspend fun saveToken(token: String){
-        manager.save(UserEnum.TOKEN.name,token)
+        manager.saveData(UserEnum.TOKEN.name,token)
     }
 
     suspend fun isLoggedIn(isLoggedIn: Boolean){
-        manager.save(UserEnum.IS_LOGGED_IN.name,isLoggedIn)
+        manager.saveData(UserEnum.IS_LOGGED_IN.name,isLoggedIn)
     }
 
     suspend fun isRememberMe(rememberMe: Boolean){
-        manager.save(UserEnum.REMEMBER_ME.name,rememberMe)
+        manager.saveData(UserEnum.REMEMBER_ME.name,rememberMe)
     }
 
-    fun getUser(): Flow<String?> {
-        return manager.getString(key = UserEnum.USER.name,"")
+    suspend fun getUser(): Flow<String?> {
+        return manager.getData(key = UserEnum.USER.name,"")
     }
 
-    fun getToken(): Flow<String?> {
-        return manager.getString(key = UserEnum.TOKEN.name,"")
+    suspend fun getToken(): Flow<String?> {
+        return manager.getData(key = UserEnum.TOKEN.name,"")
     }
 
-    fun getIsLoggedIn(): Flow<Boolean?> {
-        return manager.getBoolean(key = UserEnum.IS_LOGGED_IN.name)
+    suspend fun getIsLoggedIn(): Flow<Boolean?> {
+        return manager.getData(key = UserEnum.IS_LOGGED_IN.name,false)
     }
 
-    fun getIsRememberMe(): Flow<Boolean?> {
-        return manager.getBoolean(key = UserEnum.REMEMBER_ME.name)
+    suspend fun getIsRememberMe(): Flow<Boolean?> {
+        return manager.getData(key = UserEnum.REMEMBER_ME.name,false)
     }
 
 }
