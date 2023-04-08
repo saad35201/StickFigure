@@ -88,6 +88,15 @@ data class User(
 	@field:JsonProperty("email")
 	val email: String? = null,
 
+	@field:JsonProperty("facebook")
+	val facebook: String? = null,
+
+	@field:JsonProperty("instagram")
+	val instagram: String? = null,
+
+	@field:JsonProperty("twitter")
+	val twitter: String? = null,
+
 	@field:JsonProperty("total_following")
 	val totalFollowing: Int? = null,
 

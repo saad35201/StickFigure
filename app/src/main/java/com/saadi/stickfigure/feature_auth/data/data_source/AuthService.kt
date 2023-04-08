@@ -3,7 +3,9 @@ package com.saadi.stickfigure.feature_auth.data.data_source
 import com.saadi.stickfigure.feature_auth.domain.model.sign_in.SignInRequest
 import com.saadi.stickfigure.feature_auth.domain.model.sign_in.SignInResponse
 import com.saadi.stickfigure.feature_auth.domain.model.sign_up.SignUpRequest
+import com.saadi.stickfigure.feature_auth.domain.model.sign_up.SignUpResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field
@@ -19,16 +21,16 @@ interface AuthService {
         @Body signInRequest: SignInRequest
     ): Response<SignInResponse>
 
-    @FormUrlEncoded
+    @Multipart
     @POST("/api/v1/register")
     suspend fun signUp(
-        @Field("profile_pic") profilePic: MultipartBody.Part,
-        @Field("user_name") username: String,
-        @Field("name") name: String,
-        @Field("email") email: String,
-        @Field("phone") phoneNo: String,
-        @Field("password") password: String,
-        @Field("password_confirmation") passwordConfirmation: String,
-    ): Response<SignInResponse>
+        @Part("profile_pic") profilePic: MultipartBody.Part,
+        @Part("user_name") username: RequestBody,
+        @Part("name") name: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part("phone") phoneNo: RequestBody,
+        @Part("password") password: RequestBody,
+        @Part("password_confirmation") passwordConfirmation: RequestBody,
+    ): Response<SignUpResponse>
 
 }

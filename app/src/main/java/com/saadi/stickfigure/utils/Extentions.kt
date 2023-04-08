@@ -31,6 +31,7 @@ import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.ProgressDialogBinding
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import org.json.JSONException
 import org.json.JSONObject
@@ -186,35 +187,11 @@ fun String.isValidNumber(): Boolean{
     }
 }
 
-fun Uri.toMultipartFile(contentResolver: ContentResolver, paramName: String): MultipartBody.Part? {
-    val inputStream = contentResolver.openInputStream(this) ?: return null
-    val file = File(this.path!!)
-    try {
-        file.createNewFile()
-        file.outputStream().use { inputStream.copyTo(it) }
-    } catch (e: IOException) {
-        e.printStackTrace()
-    }
-
-    val requestFile =
-        file.asRequestBody((contentResolver.getType(this) ?: "application/octet-stream").toMediaTypeOrNull())
-    return MultipartBody.Part.createFormData(paramName, file.name, requestFile)
-}
-
-fun String.toJsonObject(): JSONObject? {
-    return try {
-        JSONObject(this)
-    } catch (e: JSONException) {
-        e.printStackTrace()
-        null
-    }
-}
-
-fun JSONObject.toStringOrNull(): String? {
-    return try {
-        toString()
-    } catch (e: JSONException) {
-        e.printStackTrace()
-        null
-    }
+fun Uri.toMultipartData(contentResolver: ContentResolver,name: String): MultipartBody.Part {
+    val file = File(this.path)
+    val requestFile = RequestBody.create(
+        contentResolver.getType(this)?.toMediaTypeOrNull(),
+        file
+    )
+    return MultipartBody.Part.createFormData(name, file.name, requestFile)
 }
