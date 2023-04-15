@@ -50,7 +50,6 @@ class FragmentSplash : Fragment() {
         //observing sign in LiveData
         viewLifecycleOwner.observe(mSplashVm.sessionLiveData) {
             if (it){
-                requireView().showSnackBar("Remembered and logged in",3000)
                 //Splash timer
                 mHandler = Handler(Looper.getMainLooper())
                 mHandler.postDelayed({

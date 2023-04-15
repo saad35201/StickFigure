@@ -34,4 +34,8 @@ class AuthRepositoryImp(
         }
     }
 
+    override suspend fun forgotPassword(email: String): NetworkResult<SignUpResponse> {
+        return safeApiCall { authService.forgotPassword(email = email) }
+    }
+
 }

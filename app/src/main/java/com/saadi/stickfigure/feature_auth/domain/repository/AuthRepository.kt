@@ -12,4 +12,6 @@ interface AuthRepository {
 
     suspend fun signUp(signUpRequest: SignUpRequest): NetworkResult<SignUpResponse>
 
+    suspend fun forgotPassword(email: String): NetworkResult<SignUpResponse>
+
 }

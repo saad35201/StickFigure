@@ -33,4 +33,10 @@ interface AuthService {
         @Part("password_confirmation") passwordConfirmation: RequestBody,
     ): Response<SignUpResponse>
 
+    @FormUrlEncoded
+    @POST("/api/v1/forgot_password")
+    suspend fun forgotPassword(
+        @Field("email") email: String
+    ): Response<SignUpResponse>
+
 }
