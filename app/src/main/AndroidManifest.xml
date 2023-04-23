@@ -17,10 +17,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Home"
+            android:name=".feature_home.presentation.ActivtyHomeBase"
             android:exported="false" />
         <activity
-            android:name=".feature_auth.presentation.MainActivity"
+            android:name=".feature_auth.presentation.ActivityAuthBase"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

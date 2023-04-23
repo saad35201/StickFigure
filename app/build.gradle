@@ -126,5 +126,8 @@ dependencies {
     //phone validation
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.32'
 
+    //spin kit
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
 
 }

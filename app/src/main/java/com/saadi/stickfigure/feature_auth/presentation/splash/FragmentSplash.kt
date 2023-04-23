@@ -9,11 +9,10 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.saadi.stickfigure.Home
+import com.saadi.stickfigure.feature_home.presentation.ActivtyHomeBase
 import com.saadi.stickfigure.R
 import com.saadi.stickfigure.utils.Constants
 import com.saadi.stickfigure.utils.observe
-import com.saadi.stickfigure.utils.showSnackBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,7 +52,7 @@ class FragmentSplash : Fragment() {
                 //Splash timer
                 mHandler = Handler(Looper.getMainLooper())
                 mHandler.postDelayed({
-                    startActivity(Intent(activity,Home::class.java))
+                    startActivity(Intent(activity, ActivtyHomeBase::class.java))
                     activity?.finish()
                 }, Constants.SPLASH_DELAY.toLong())
             }else{
