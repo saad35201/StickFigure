@@ -9,7 +9,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.saadi.stickfigure.feature_home.presentation.ActivityHomeBase
+import com.saadi.stickfigure.feature_home_drawer.presentation.ActivityHomeBase
 import com.saadi.stickfigure.R
 import com.saadi.stickfigure.utils.Constants
 import com.saadi.stickfigure.utils.observe

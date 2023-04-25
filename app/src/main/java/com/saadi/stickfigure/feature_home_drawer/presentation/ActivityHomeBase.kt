@@ -1,19 +1,24 @@
-package com.saadi.stickfigure.feature_home.presentation
+package com.saadi.stickfigure.feature_home_drawer.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
-import android.widget.Toolbar
-import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.ActivityHomeBinding
+import com.saadi.stickfigure.feature_auth.domain.model.sign_in.User
+import com.saadi.stickfigure.utils.observe
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ActivityHomeBase : AppCompatActivity() {
 
     private lateinit var mBinding : ActivityHomeBinding
-    private lateinit var mToggle: ActionBarDrawerToggle
+    private val mVmHomeBase by viewModels<VmHomeBase>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,10 +29,12 @@ class ActivityHomeBase : AppCompatActivity() {
         mBinding.apply {
             val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
 
+            //setting toolbar and hamburger icon
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
 
+            //nav click listener
             mBinding.navViewDrawer.setNavigationItemSelectedListener {
                 when (it.itemId) {
                     R.id.nav_my_profile -> {
@@ -43,6 +50,16 @@ class ActivityHomeBase : AppCompatActivity() {
                 true
             }
         }
+
+        //observingLiveData
+        mVmHomeBase.getUser()
+        observe(mVmHomeBase.userLiveData, ::handleUserName)
+
+    }
+
+    private fun handleUserName(user: User) {
+        //setting username in drawer hearder
+        mBinding.navViewDrawer.getHeaderView(0).findViewById<TextView>(R.id.tv_user_name).text = user.name
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

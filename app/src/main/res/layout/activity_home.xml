@@ -6,10 +6,9 @@
     android:id="@+id/drawer_layout"
     tools:openDrawer="start"
     android:layout_height="match_parent"
-    tools:context=".feature_home.presentation.ActivityHomeBase">
+    tools:context=".feature_home_drawer.presentation.ActivityHomeBase">
 
     <include
-        android:id="@+id/nav_app_bar"
         layout="@layout/app_bar_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

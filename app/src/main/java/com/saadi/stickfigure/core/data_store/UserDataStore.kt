@@ -1,5 +1,6 @@
 package com.saadi.stickfigure.core.data_store
 
+import com.google.gson.Gson
 import com.saadi.stickfigure.core.enums.UserEnum
 import com.saadi.stickfigure.feature_auth.domain.model.sign_in.User
 import kotlinx.coroutines.flow.Flow
@@ -10,7 +11,7 @@ class UserDataStore(
 ) {
 
     suspend fun saveUser(user: User){
-        manager.saveData(UserEnum.USER.name,user.toString())
+        manager.saveData(UserEnum.USER.name,Gson().toJson(user))
     }
 
     suspend fun saveToken(token: String){

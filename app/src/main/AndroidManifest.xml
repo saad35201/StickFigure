@@ -7,7 +7,7 @@
 
     <application
         android:name=".StickFigureApplication"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".feature_home.presentation.ActivityHomeBase"
+            android:name=".feature_home_drawer.presentation.ActivityHomeBase"
             android:exported="false" />
         <activity
             android:name=".feature_auth.presentation.ActivityAuthBase"
