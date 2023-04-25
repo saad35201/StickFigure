@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_my_profile"
+        android:icon="@drawable/ic_user"
+        android:title="@string/my_profile" />
+    <item
+        android:id="@+id/nav_home_page"
+        android:icon="@drawable/ic_home"
+        android:title="@string/homepage" />
+    <item
+        android:id="@+id/nav_news_feed"
+        android:icon="@drawable/ic_news"
+        android:title="@string/newsfeed" />
+
+    <item
+        android:id="@+id/nav_creator"
+        android:icon="@drawable/ic_add"
+        android:title="@string/creator" />
+
+    <item
+        android:id="@+id/nav_shop"
+        android:icon="@drawable/ic_shop"
+        android:title="@string/shop" />
+
+    <item
+        android:id="@+id/nav_messages"
+        android:icon="@drawable/ic_message"
+        android:title="@string/messages" />
+
+    <item
+        android:id="@+id/nav_my_store"
+        android:icon="@drawable/ic_my_store"
+        android:title="@string/my_store" />
+
+    <item
+        android:id="@+id/nav_wallet"
+        android:icon="@drawable/ic_wallet"
+        android:title="@string/wallet" />
+
+    <item
+        android:id="@+id/nav_setting"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/settings" />
+
+</menu>
