@@ -24,8 +24,10 @@ interface AuthService {
     @Multipart
     @POST("/api/v1/register")
     suspend fun signUp(
-        @Part("profile_pic") profilePic: MultipartBody.Part,
+        @Part profilePic: MultipartBody.Part,
         @Part("user_name") username: RequestBody,
+        @Part("first_name") firstName: RequestBody,
+        @Part("last_name") lastName: RequestBody,
         @Part("name") name: RequestBody,
         @Part("email") email: RequestBody,
         @Part("phone") phoneNo: RequestBody,

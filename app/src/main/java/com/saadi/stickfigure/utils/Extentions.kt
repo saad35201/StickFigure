@@ -19,11 +19,15 @@ import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
+import androidx.annotation.DrawableRes
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.i18n.phonenumbers.PhoneNumberUtil
@@ -132,11 +136,11 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
 
 //fun ImageView.loadImage(@DrawableRes resId: Int) =
 //    Glide.with(this).load(resId).transition(DrawableTransitionOptions.withCrossFade())
-//        .placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(this)
-//
-//fun ImageView.loadImage(fileName: String) =
-//    Glide.with(this).load(IMAGE_BASE_URL + fileName).transition(DrawableTransitionOptions.withCrossFade())
-//        .placeholder(R.drawable.img_placeholder).error(R.drawable.img_placeholder).into(this)
+//        .placeholder(R.drawable.ic_avatar).error(R.drawable.ic_avatar).into(this)
+
+fun ImageView.loadImageProfile(fileName: String) =
+    Glide.with(this).load(Constants.BASE_URL + fileName).transition(DrawableTransitionOptions.withCrossFade())
+        .placeholder(R.drawable.ic_avatar).error(R.drawable.ic_avatar).into(this)
 
 
 fun Context.progressDialog(): Dialog {

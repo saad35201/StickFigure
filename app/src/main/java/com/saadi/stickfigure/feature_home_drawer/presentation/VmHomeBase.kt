@@ -28,4 +28,10 @@ class VmHomeBase @Inject constructor(
         }
     }
 
+    fun clearDataStore(){
+        viewModelScope.launch {
+            userDataStore.clearDataStore()
+        }
+    }
+
 }

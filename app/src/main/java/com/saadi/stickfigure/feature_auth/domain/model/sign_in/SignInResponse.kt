@@ -103,6 +103,12 @@ data class User(
 	@field:JsonProperty("total_shares")
 	val totalShares: Int? = null,
 
+	@field:JsonProperty("available_amount")
+	val availableAmount: Int? = null,
+
 	@field:JsonProperty("payments_enabled")
-	val paymentsEnabled: Boolean? = null
+	val paymentsEnabled: Boolean? = null,
+
+	@field:JsonProperty("is_already_request_sent")
+	val isAlreadyRequestSent: Boolean? = null
 )

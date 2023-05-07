@@ -42,4 +42,8 @@ class UserDataStore(
         return manager.getData(key = UserEnum.REMEMBER_ME.name,false)
     }
 
+    suspend fun clearDataStore(){
+        return manager.clear()
+    }
+
 }
