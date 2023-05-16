@@ -3,15 +3,15 @@ package com.saadi.stickfigure.feature_home_drawer.presentation
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.MenuItem
-import android.view.View
-import android.view.WindowInsetsController
+import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.WindowCompat
 import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.ActivityHomeBinding
 import com.saadi.stickfigure.feature_auth.domain.model.sign_in.User
@@ -31,8 +31,12 @@ class ActivityHomeBase : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //binding
         mBinding = ActivityHomeBinding.inflate(layoutInflater)
-        //changing status bar color
+        val window = this.window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            isAppearanceLightStatusBars = false
+        }
 
         setContentView(mBinding.root)
 
@@ -81,6 +85,11 @@ class ActivityHomeBase : AppCompatActivity() {
                 true
             }
 
+            //cart btn click listener
+            mBinding.fabCart.setOnClickListener {
+                Toast.makeText(this@ActivityHomeBase,getString(R.string.cart), Toast.LENGTH_SHORT).show()
+            }
+
             //logout click listener
             mBinding.navViewDrawer.findViewById<TextView>(R.id.tv_logout).setOnClickListener {
                 mVmHomeBase.clearDataStore()
@@ -109,11 +118,26 @@ class ActivityHomeBase : AppCompatActivity() {
             )
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            mBinding.drawerLayout.openDrawer(GravityCompat.START)
-            return true
+        return when (item.itemId) {
+            android.R.id.home -> {
+                mBinding.drawerLayout.openDrawer(GravityCompat.START)
+                return true
+            }
+            R.id.menu_search -> {
+                Toast.makeText(this,getString(R.string.search), Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.menu_notification -> {
+                Toast.makeText(this,getString(R.string.notification), Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 }

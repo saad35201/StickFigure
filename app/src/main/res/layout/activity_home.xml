@@ -2,46 +2,64 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/drawer_layout"
     tools:openDrawer="start"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".feature_home_drawer.presentation.ActivityHomeBase">
 
-    <include
-        layout="@layout/app_bar_main"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <include
+            layout="@layout/app_bar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            android:importantForAccessibility="no"
+            app:tint="@color/white"
+            app:backgroundTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_cart" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view_drawer"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:menu="@menu/drawer_menu"
-        app:itemIconSize="@dimen/_18sdp"
-        app:headerLayout="@layout/drawer_header"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/drawer_header"
+        app:itemIconSize="@dimen/_18sdp"
+        app:menu="@menu/drawer_menu">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
             android:layout_gravity="bottom"
-            android:background="@color/black"
-            android:layout_height="@dimen/_40sdp">
+            android:background="@color/black">
 
             <TextView
                 android:id="@+id/tv_logout"
+                style="@style/tv_h1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/logout"
-                android:drawablePadding="@dimen/_10sdp"
-                style="@style/tv_h1"
-                android:textColor="@color/white"
                 android:layout_marginStart="@dimen/_15sdp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:drawablePadding="@dimen/_10sdp"
+                android:text="@string/logout"
+                android:textColor="@color/white"
+                app:drawableStartCompat="@drawable/ic_logout"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:drawableStartCompat="@drawable/ic_logout" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
