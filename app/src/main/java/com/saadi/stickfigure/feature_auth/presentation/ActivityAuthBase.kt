@@ -15,14 +15,20 @@ class ActivityAuthBase : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Get the NavHostFragment
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.auth_nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
         intent?.let {
-            val isLogout = it.getBooleanExtra("logout", false)
-            if (isLogout) {
-                navController.navigate(R.id.fragmentSignIn)
-            }
+            val destination = it.getIntExtra("destinationFragment", R.id.fragmentSplash)
+            // Get the NavHostFragment
+            val navHostFragment = supportFragmentManager.findFragmentById(R.id.auth_nav_host_fragment) as NavHostFragment
+            val navController = navHostFragment.navController
+            val graphInflater = navController.navInflater
+            val navGraph = graphInflater.inflate(R.navigation.auth_nav_graph)
+
+            // Set the desired fragment as the start destination
+            navGraph.setStartDestination(destination)
+
+            // Set the modified graph to the navController
+            navController.graph = navGraph
+
         }
 
     }
