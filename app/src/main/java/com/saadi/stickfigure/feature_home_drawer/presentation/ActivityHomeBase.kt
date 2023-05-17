@@ -12,6 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.WindowCompat
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.ActivityHomeBinding
 import com.saadi.stickfigure.feature_auth.domain.model.sign_in.User
@@ -26,39 +30,50 @@ class ActivityHomeBase : AppCompatActivity() {
     private lateinit var mBinding: ActivityHomeBinding
     private val mVmHomeBase by viewModels<VmHomeBase>()
 
+    //home nav
+    private lateinit var mNavController: NavController
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //binding
         mBinding = ActivityHomeBinding.inflate(layoutInflater)
+        //status bar config
         val window = this.window
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = ContextCompat.getColor(this, R.color.black)
         WindowCompat.getInsetsController(window, window.decorView).apply {
             isAppearanceLightStatusBars = false
         }
-
         setContentView(mBinding.root)
 
+        //finding home nav
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.home_nav_host_fragment) as NavHostFragment
+        mNavController = navHostFragment.navController
 
         mBinding.apply {
-            val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
 
             //setting toolbar and hamburger icon
+            val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbar)
             setSupportActionBar(toolbar)
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
+            // Set the app bar title(default)
+            supportActionBar?.title = getString(R.string.homepage)
+
+            //setting homepage screen as default
+            mBinding.navViewDrawer.setCheckedItem(R.id.nav_home_page)
 
             //nav click listener
             mBinding.navViewDrawer.setNavigationItemSelectedListener {
-                //closing drawer on item click
-                mBinding.drawerLayout.closeDrawers()
                 when (it.itemId) {
                     R.id.nav_my_profile -> {
                         supportActionBar?.title = getString(R.string.my_profile)
+                        mNavController.navigate(R.id.fragmentProfile)
                     }
                     R.id.nav_home_page -> {
                         supportActionBar?.title = getString(R.string.homepage)
+                        mNavController.navigate(R.id.fragmentHomePage)
                     }
                     R.id.nav_news_feed -> {
                         supportActionBar?.title = getString(R.string.newsfeed)
@@ -82,6 +97,8 @@ class ActivityHomeBase : AppCompatActivity() {
                         supportActionBar?.title = getString(R.string.settings)
                     }
                 }
+                //closing drawer on item click
+                mBinding.drawerLayout.closeDrawers()
                 true
             }
 
