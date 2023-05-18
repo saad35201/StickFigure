@@ -76,19 +76,6 @@ class ActivityHomeBase : AppCompatActivity() {
         mVmHomeBase.getUser()
         observe(mVmHomeBase.userLiveData, ::handleUserData)
 
-        //back btn press callback
-        val callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    mBinding.drawerLayout.closeDrawer(GravityCompat.START)
-                } else {
-                    this@ActivityHomeBase.finish()
-                }
-            }
-        }
-
-        onBackPressedDispatcher.addCallback(this, callback)
-
     }
 
     private fun handleUserData(user: User) {
