@@ -8,6 +8,7 @@ import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -75,6 +76,19 @@ class ActivityHomeBase : AppCompatActivity() {
         mVmHomeBase.getUser()
         observe(mVmHomeBase.userLiveData, ::handleUserData)
 
+        //back btn press callback
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (mBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    mBinding.drawerLayout.closeDrawer(GravityCompat.START)
+                } else {
+                    this@ActivityHomeBase.finish()
+                }
+            }
+        }
+
+        onBackPressedDispatcher.addCallback(this, callback)
+
     }
 
     private fun handleUserData(user: User) {
@@ -118,7 +132,15 @@ class ActivityHomeBase : AppCompatActivity() {
 
         mAppBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.fragmentProfile, R.id.fragmentHomePage, R.id.fragmentNewsFeed
+                R.id.fragmentProfile,
+                R.id.fragmentHomePage,
+                R.id.fragmentNewsFeed,
+                R.id.fragmentCreator,
+                R.id.fragmentShop,
+                R.id.fragmentMessage,
+                R.id.fragmentMyStore,
+                R.id.fragmentWallet,
+                R.id.fragmentSetting
             ), mBinding.drawerLayout
         )
         setupActionBarWithNavController(mNavController, mAppBarConfiguration)

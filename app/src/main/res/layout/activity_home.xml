@@ -64,7 +64,7 @@
 
             <TextView
                 android:id="@+id/tv_logout"
-                style="@style/tv_h1"
+                style="@style/tv_body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_15sdp"
