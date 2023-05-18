@@ -9,15 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.WindowCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.ActivityHomeBinding
@@ -36,6 +36,7 @@ class ActivityHomeBase : AppCompatActivity() {
 
     //home nav
     private lateinit var mNavController: NavController
+    private lateinit var mAppBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,10 +87,6 @@ class ActivityHomeBase : AppCompatActivity() {
             )
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return NavigationUI.navigateUp(mNavController, mBinding.drawerLayout)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         return true
@@ -112,27 +109,25 @@ class ActivityHomeBase : AppCompatActivity() {
     private fun setupDrawerLayout() {
         val toolbar: androidx.appcompat.widget.Toolbar = mBinding.appBar.toolbar
         setSupportActionBar(toolbar)
-
-        val toggle = ActionBarDrawerToggle(
-            this,
-            mBinding.drawerLayout,
-            toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
-        )
-
-        mBinding.drawerLayout.addDrawerListener(toggle)
-        toggle.isDrawerSlideAnimationEnabled = true
-        toggle.isDrawerIndicatorEnabled = true
-        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.home_nav_host_fragment) as NavHostFragment
         mNavController = navHostFragment.navController
+
+        mAppBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.fragmentProfile, R.id.fragmentHomePage, R.id.fragmentNewsFeed
+            ), mBinding.drawerLayout
+        )
+        setupActionBarWithNavController(mNavController, mAppBarConfiguration)
         mBinding.navViewDrawer.setupWithNavController(mNavController)
 
-        NavigationUI.setupActionBarWithNavController(this, mNavController, mBinding.drawerLayout)
+    }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return mNavController.navigateUp(mAppBarConfiguration) || super.onSupportNavigateUp()
     }
 
     override fun onBackPressed() {
