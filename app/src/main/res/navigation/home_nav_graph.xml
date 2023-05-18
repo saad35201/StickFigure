@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nav_graph.xml"
+    app:startDestination="@id/fragmentHomePage">
+
+    <fragment
+        android:id="@+id/fragmentProfile"
+        android:name="com.saadi.stickfigure.feature_profile.presentation.profile.FragmentProfile"
+        android:label="@string/my_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/fragmentHomePage"
+        android:name="com.saadi.stickfigure.feature_homepage.presentation.FragmentHomePage"
+        android:label="@string/homepage"
+        tools:layout="@layout/fragment_home_page" />
+    <fragment
+        android:id="@+id/fragmentNewsFeed"
+        android:name="com.saadi.stickfigure.feature_news_feed.presentation.FragmentNewsFeed"
+        android:label="@string/newsfeed"
+        tools:layout="@layout/fragment_news_feed" />
+    <fragment
+        android:id="@+id/fragmentCreator"
+        android:name="com.saadi.stickfigure.feature_creator.presentation.FragmentCreator"
+        android:label="@string/creator"
+        tools:layout="@layout/fragment_creator" />
+    <fragment
+        android:id="@+id/fragmentShop"
+        android:name="com.saadi.stickfigure.feature_shop.presentation.FragmentShop"
+        android:label="@string/shop"
+        tools:layout="@layout/fragment_shop" />
+    <fragment
+        android:id="@+id/fragmentMessage"
+        android:name="com.saadi.stickfigure.feature_message.presentation.FragmentMessage"
+        android:label="@string/messages"
+        tools:layout="@layout/fragment_message" />
+    <fragment
+        android:id="@+id/fragmentMyStore"
+        android:name="com.saadi.stickfigure.feature_my_store.presentation.FragmentMyStore"
+        android:label="@string/my_store"
+        tools:layout="@layout/fragment_my_store" />
+    <fragment
+        android:id="@+id/fragmentWallet"
+        android:name="com.saadi.stickfigure.feature_wallet.presentation.FragmentWallet"
+        android:label="@string/wallet"
+        tools:layout="@layout/fragment_wallet" />
+    <fragment
+        android:id="@+id/fragmentSetting"
+        android:name="com.saadi.stickfigure.feature_setting.presentation.FragmentSetting"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_setting" />
+</navigation>

@@ -10,6 +10,7 @@ import com.saadi.stickfigure.feature_auth.domain.repository.AuthRepository
 import com.saadi.stickfigure.utils.NetworkResult
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.http.Multipart
 
 class AuthRepositoryImp(
 
@@ -25,6 +26,8 @@ class AuthRepositoryImp(
             authService.signUp(
                 profilePic = signUpRequest.profilePic!!,
                 username = signUpRequest.username!!.toRequestBody(MultipartBody.FORM),
+                firstName = signUpRequest.firstName!!.toRequestBody(MultipartBody.FORM),
+                lastName = signUpRequest.lastName!!.toRequestBody(MultipartBody.FORM),
                 name = "${signUpRequest.firstName} ${signUpRequest.lastName}".toRequestBody(MultipartBody.FORM),
                 email = signUpRequest.email!!.toRequestBody(MultipartBody.FORM),
                 phoneNo = signUpRequest.phoneNumber!!.toRequestBody(MultipartBody.FORM),

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/fragmentProfile"
+            android:icon="@drawable/ic_user"
+            android:title="@string/my_profile" />
+        <item
+            android:id="@+id/fragmentHomePage"
+            android:icon="@drawable/ic_home"
+            android:title="@string/homepage" />
+        <item
+            android:id="@+id/fragmentNewsFeed"
+            android:icon="@drawable/ic_news"
+            android:title="@string/newsfeed" />
+
+        <item
+            android:id="@+id/fragmentCreator"
+            android:icon="@drawable/ic_add"
+            android:title="@string/creator" />
+
+        <item
+            android:id="@+id/fragmentShop"
+            android:icon="@drawable/ic_shop"
+            android:title="@string/shop" />
+
+        <item
+            android:id="@+id/fragmentMessage"
+            android:icon="@drawable/ic_message"
+            android:title="@string/messages" />
+
+        <item
+            android:id="@+id/fragmentMyStore"
+            android:icon="@drawable/ic_my_store"
+            android:title="@string/my_store" />
+
+        <item
+            android:id="@+id/fragmentWallet"
+            android:icon="@drawable/ic_wallet"
+            android:title="@string/wallet" />
+
+        <item
+            android:id="@+id/fragmentSetting"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/settings" />
+
+    </group>
+
+</menu>

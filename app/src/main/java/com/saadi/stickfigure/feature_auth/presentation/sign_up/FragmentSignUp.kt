@@ -71,6 +71,11 @@ class FragmentSignUp : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //test
+        mBinding.etEmail.setText("stickfiguretest@gmail.com")
+        mBinding.etPassword.setText("qwerty123")
+        mBinding.etConfirmPassword.setText("qwerty123")
+
         //attaching phone edittext with ccp
         mBinding.ccp.registerCarrierNumberEditText(mBinding.etPhone)
         mBinding.ccp.isValidFullNumber

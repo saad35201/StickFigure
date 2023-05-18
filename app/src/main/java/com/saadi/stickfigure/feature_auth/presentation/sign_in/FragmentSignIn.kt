@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.saadi.stickfigure.feature_home.presentation.ActivtyHomeBase
+import com.saadi.stickfigure.feature_home_drawer.presentation.ActivityHomeBase
 import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.FragmentSignInBinding
 import com.saadi.stickfigure.feature_auth.domain.model.sign_in.SignInRequest
@@ -92,7 +92,7 @@ class FragmentSignIn : Fragment() {
                         mSignInVm.saveIsLoggedIn(isLoggedIn = false)
                         mSignInVm.saveRememberMe(rememberMe = false)
                     }
-                    startActivity(Intent(activity, ActivtyHomeBase::class.java))
+                    startActivity(Intent(activity, ActivityHomeBase::class.java))
                     activity?.finish()
                 }
             }
