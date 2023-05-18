@@ -4,15 +4,15 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_my_profile"
+            android:id="@+id/fragmentProfile"
             android:icon="@drawable/ic_user"
             android:title="@string/my_profile" />
         <item
-            android:id="@+id/nav_home_page"
+            android:id="@+id/fragmentHomePage"
             android:icon="@drawable/ic_home"
             android:title="@string/homepage" />
         <item
-            android:id="@+id/nav_news_feed"
+            android:id="@+id/fragmentNewsFeed"
             android:icon="@drawable/ic_news"
             android:title="@string/newsfeed" />
 

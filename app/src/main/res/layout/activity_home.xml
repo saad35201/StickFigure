@@ -34,7 +34,7 @@
             android:id="@+id/fab_cart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_15sdp"
+            android:layout_margin="@dimen/_10sdp"
             android:importantForAccessibility="no"
             app:backgroundTint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -50,6 +50,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black"
         app:headerLayout="@layout/drawer_header"
         app:itemIconSize="@dimen/_18sdp"
         app:menu="@menu/drawer_menu">

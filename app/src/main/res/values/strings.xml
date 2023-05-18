@@ -43,4 +43,6 @@
     <string name="search">Search</string>
     <string name="notification">Notification</string>
     <string name="cart">Cart</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="navigation_drawer_open">Open</string>
 </resources>

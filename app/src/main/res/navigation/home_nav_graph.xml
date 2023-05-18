@@ -8,11 +8,16 @@
     <fragment
         android:id="@+id/fragmentProfile"
         android:name="com.saadi.stickfigure.feature_profile.presentation.profile.FragmentProfile"
-        android:label="fragment_profile"
+        android:label="@string/my_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/fragmentHomePage"
         android:name="com.saadi.stickfigure.feature_homepage.presentation.FragmentHomePage"
-        android:label="fragment_home_page"
+        android:label="@string/homepage"
         tools:layout="@layout/fragment_home_page" />
+    <fragment
+        android:id="@+id/fragmentNewsFeed"
+        android:name="com.saadi.stickfigure.feature_news_feed.presentation.FragmentNewsFeed"
+        android:label="@string/newsfeed"
+        tools:layout="@layout/fragment_news_feed" />
 </navigation>
