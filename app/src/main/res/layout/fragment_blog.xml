@@ -3,12 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature_profile.presentation.profile.FragmentProfile">
+    tools:context=".feature_blog.presentation.FragmentBlog">
 
     <TextView
-        android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/my_profile" />
+        android:text="@string/blogs" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

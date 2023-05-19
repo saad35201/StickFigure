@@ -9,7 +9,11 @@
         android:id="@+id/fragmentProfile"
         android:name="com.saadi.stickfigure.feature_profile.presentation.profile.FragmentProfile"
         android:label="@string/my_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_fragmentProfile_to_fragmentEditProfile"
+            app:destination="@id/fragmentEditProfile" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentHomePage"
         android:name="com.saadi.stickfigure.feature_homepage.presentation.FragmentHomePage"
@@ -31,6 +35,11 @@
         android:label="@string/shop"
         tools:layout="@layout/fragment_shop" />
     <fragment
+        android:id="@+id/fragmentBlog"
+        android:name="com.saadi.stickfigure.feature_blog.presentation.FragmentBlog"
+        android:label="@string/blogs"
+        tools:layout="@layout/fragment_blog" />
+    <fragment
         android:id="@+id/fragmentMessage"
         android:name="com.saadi.stickfigure.feature_message.presentation.FragmentMessage"
         android:label="@string/messages"
@@ -50,4 +59,9 @@
         android:name="com.saadi.stickfigure.feature_setting.presentation.FragmentSetting"
         android:label="@string/settings"
         tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/fragmentEditProfile"
+        android:name="com.saadi.stickfigure.feature_profile.presentation.edit_profile.FragmentEditProfile"
+        android:label="@string/edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
 </navigation>

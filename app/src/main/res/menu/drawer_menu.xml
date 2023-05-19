@@ -27,6 +27,11 @@
             android:title="@string/shop" />
 
         <item
+            android:id="@+id/fragmentBlog"
+            android:icon="@drawable/ic_blog"
+            android:title="@string/blogs" />
+
+        <item
             android:id="@+id/fragmentMessage"
             android:icon="@drawable/ic_message"
             android:title="@string/messages" />

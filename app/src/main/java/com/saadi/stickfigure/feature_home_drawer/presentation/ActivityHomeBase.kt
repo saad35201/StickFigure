@@ -2,13 +2,13 @@ package com.saadi.stickfigure.feature_home_drawer.presentation
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -52,7 +52,7 @@ class ActivityHomeBase : AppCompatActivity() {
         }
         setContentView(mBinding.root)
 
-        setupDrawerLayout()
+        setupDrawer()
 
         //cart btn click listener
         mBinding.fabCart.setOnClickListener {
@@ -95,28 +95,29 @@ class ActivityHomeBase : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_search -> {
+            R.id.action_search -> {
                 Toast.makeText(this, getString(R.string.search), Toast.LENGTH_SHORT).show()
                 true
             }
-            R.id.menu_notification -> {
+
+            R.id.action_notification -> {
                 Toast.makeText(this, getString(R.string.notification), Toast.LENGTH_SHORT).show()
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-    private fun setupDrawerLayout() {
+    private fun setupDrawer() {
         val toolbar: androidx.appcompat.widget.Toolbar = mBinding.appBar.toolbar
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.home_nav_host_fragment) as NavHostFragment
         mNavController = navHostFragment.navController
 
+        //setting top level fragment to maintain menu icon for these fragments
         mAppBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.fragmentProfile,
@@ -130,6 +131,7 @@ class ActivityHomeBase : AppCompatActivity() {
                 R.id.fragmentSetting
             ), mBinding.drawerLayout
         )
+
         setupActionBarWithNavController(mNavController, mAppBarConfiguration)
         mBinding.navViewDrawer.setupWithNavController(mNavController)
 
