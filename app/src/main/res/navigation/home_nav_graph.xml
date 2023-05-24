@@ -36,7 +36,7 @@
         tools:layout="@layout/fragment_shop" />
     <fragment
         android:id="@+id/fragmentBlog"
-        android:name="com.saadi.stickfigure.feature_blog.presentation.FragmentBlog"
+        android:name="com.saadi.stickfigure.feature_blog.presentation.blogs.FragmentBlog"
         android:label="@string/blogs"
         tools:layout="@layout/fragment_blog" />
     <fragment
