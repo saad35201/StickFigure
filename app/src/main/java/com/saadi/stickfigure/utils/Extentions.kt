@@ -134,9 +134,13 @@ fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
     })
 }
 
-//fun ImageView.loadImage(@DrawableRes resId: Int) =
-//    Glide.with(this).load(resId).transition(DrawableTransitionOptions.withCrossFade())
-//        .placeholder(R.drawable.ic_avatar).error(R.drawable.ic_avatar).into(this)
+fun ImageView.loadImage(@DrawableRes resId: Int) =
+    Glide.with(this).load(resId).transition(DrawableTransitionOptions.withCrossFade())
+        .placeholder(R.drawable.ic_avatar).error(R.drawable.ic_avatar).into(this)
+
+fun ImageView.loadImage(path: String) =
+    Glide.with(this).load(path).transition(DrawableTransitionOptions.withCrossFade())
+        .placeholder(R.drawable.ic_avatar).error(R.drawable.ic_avatar).into(this)
 
 fun ImageView.loadImageProfile(fileName: String) =
     Glide.with(this).load(Constants.BASE_URL + fileName).transition(DrawableTransitionOptions.withCrossFade())

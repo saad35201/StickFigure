@@ -97,6 +97,9 @@ data class User(
 	@field:JsonProperty("twitter")
 	val twitter: String? = null,
 
+	@field:JsonProperty("store_name")
+	val store_name: String? = null,
+
 	@field:JsonProperty("total_following")
 	val totalFollowing: Int? = null,
 
@@ -106,9 +109,17 @@ data class User(
 	@field:JsonProperty("available_amount")
 	val availableAmount: Int? = null,
 
+	@field:JsonProperty("dob_visibility")
+	val dob_visibility: Int? = null,
+
 	@field:JsonProperty("payments_enabled")
 	val paymentsEnabled: Boolean? = null,
 
 	@field:JsonProperty("is_already_request_sent")
-	val isAlreadyRequestSent: Boolean? = null
+	val isAlreadyRequestSent: Boolean? = null,
+
+	@field:JsonProperty("is_blocked")
+	val is_blocked: Boolean? = null
+
+
 )

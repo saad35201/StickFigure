@@ -125,6 +125,7 @@ class ActivityHomeBase : AppCompatActivity() {
                 R.id.fragmentNewsFeed,
                 R.id.fragmentCreator,
                 R.id.fragmentShop,
+                R.id.fragmentBlog,
                 R.id.fragmentMessage,
                 R.id.fragmentMyStore,
                 R.id.fragmentWallet,
