@@ -1,20 +1,21 @@
 package com.saadi.stickfigure.feature_blog.presentation.blogs
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.FragmentBlogBinding
 import com.saadi.stickfigure.feature_blog.domain.model.ModelBlog
-import com.saadi.stickfigure.utils.Constants.TAG
 import com.saadi.stickfigure.utils.observe
+import com.saadi.stickfigure.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FragmentBlog : Fragment() {
+class FragmentBlog : Fragment(), BlogAdapter.OnItemClickListener {
 
     //binding
     private lateinit var mBinding: FragmentBlogBinding
@@ -40,9 +41,13 @@ class FragmentBlog : Fragment() {
     private fun handleBlogData(blogs: List<ModelBlog>) {
 
         mBinding.rvBlog.apply {
-            adapter = BlogAdapter(blogs)
+            adapter = BlogAdapter(blogs, this@FragmentBlog)
         }
 
+    }
+
+    override fun onItemClick(item: ModelBlog) {
+        findNavController().navigate(R.id.action_fragmentBlog_to_fragmentBlogDetail)
     }
 
 }

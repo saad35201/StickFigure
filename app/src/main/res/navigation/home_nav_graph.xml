@@ -38,7 +38,11 @@
         android:id="@+id/fragmentBlog"
         android:name="com.saadi.stickfigure.feature_blog.presentation.blogs.FragmentBlog"
         android:label="@string/blogs"
-        tools:layout="@layout/fragment_blog" />
+        tools:layout="@layout/fragment_blog" >
+        <action
+            android:id="@+id/action_fragmentBlog_to_fragmentBlogDetail"
+            app:destination="@id/fragmentBlogDetail" />
+    </fragment>
     <fragment
         android:id="@+id/fragmentMessage"
         android:name="com.saadi.stickfigure.feature_message.presentation.FragmentMessage"
@@ -64,4 +68,9 @@
         android:name="com.saadi.stickfigure.feature_profile.presentation.edit_profile.FragmentEditProfile"
         android:label="@string/edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/fragmentBlogDetail"
+        android:name="com.saadi.stickfigure.feature_blog.presentation.blog_detail.FragmentBlogDetail"
+        android:label="@string/blog_detail"
+        tools:layout="@layout/fragment_blog_detail" />
 </navigation>

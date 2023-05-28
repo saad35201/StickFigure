@@ -7,8 +7,10 @@ import com.saadi.stickfigure.databinding.RvItemBlogBinding
 import com.saadi.stickfigure.feature_blog.domain.model.ModelBlog
 import com.saadi.stickfigure.utils.loadImage
 
-class BlogAdapter(private val blogs: List<ModelBlog>) :
-    RecyclerView.Adapter<BlogAdapter.BlogViewHolder>() {
+class BlogAdapter(
+    private val blogs: List<ModelBlog>,
+    private val listener: OnItemClickListener
+) : RecyclerView.Adapter<BlogAdapter.BlogViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlogViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -19,6 +21,10 @@ class BlogAdapter(private val blogs: List<ModelBlog>) :
     override fun onBindViewHolder(holder: BlogViewHolder, position: Int) {
         val blog = blogs[position]
         holder.bind(blog)
+        // Set click listener for the item view
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(blog)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -34,4 +40,9 @@ class BlogAdapter(private val blogs: List<ModelBlog>) :
             binding.tvDescription.text = blog.description
         }
     }
+
+    interface OnItemClickListener {
+        fun onItemClick(item: ModelBlog)
+    }
+
 }

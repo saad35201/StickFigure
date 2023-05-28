@@ -34,6 +34,7 @@
     <string name="shop">Shop</string>
     <string name="messages">Messages</string>
     <string name="blogs">Blogs</string>
+    <string name="blog_detail">Blog Detail</string>
     <string name="my_store">My Store</string>
     <string name="wallet">Wallet</string>
     <string name="settings">Settings</string>

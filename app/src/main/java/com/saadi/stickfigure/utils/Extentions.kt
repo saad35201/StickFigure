@@ -44,6 +44,8 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import com.google.i18n.phonenumbers.PhoneNumberUtil
@@ -179,19 +181,30 @@ fun ImageView.loadImage(@DrawableRes resId: Int) {
     Glide.with(this)
         .load(resId)
         .transition(DrawableTransitionOptions.withCrossFade())
-        .diskCacheStrategy(DiskCacheStrategy.ALL) // Add caching strategy
         .placeholder(R.drawable.img_placeholder)
         .error(R.drawable.img_placeholder)
         .into(this)
 }
 
 fun ImageView.loadImage(path: String) {
-    Glide.with(this)
-        .load(path)
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .diskCacheStrategy(DiskCacheStrategy.ALL) // Add caching strategy
+    val requestOptions = RequestOptions()
+        .diskCacheStrategy(DiskCacheStrategy.ALL)
         .placeholder(R.drawable.img_placeholder)
         .error(R.drawable.img_placeholder)
+
+    val crossFadeFactory = DrawableCrossFadeFactory.Builder()
+        .setCrossFadeEnabled(true)
+        .build()
+
+    val thumbnailRequest = Glide.with(this)
+        .load(path)
+        .override(250) // Set the desired thumbnail size here
+
+    Glide.with(this)
+        .load(path)
+        .apply(requestOptions)
+        .transition(DrawableTransitionOptions.withCrossFade(crossFadeFactory))
+        .thumbnail(thumbnailRequest)
         .into(this)
 }
 
