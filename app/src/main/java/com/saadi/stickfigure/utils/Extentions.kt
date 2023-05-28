@@ -2,27 +2,42 @@ package com.saadi.stickfigure.utils
 
 import android.app.Activity
 import android.app.Dialog
+import android.app.DownloadManager
+import android.app.NotificationManager
 import android.app.Service
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.graphics.Insets
+import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.net.Uri
+import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
-import android.text.method.PasswordTransformationMethod
+import android.util.DisplayMetrics
+import android.util.Log
+import android.util.Size
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.Window
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -35,12 +50,11 @@ import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.ProgressDialogBinding
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import org.json.JSONException
-import org.json.JSONObject
 import java.io.File
-import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import java.util.regex.Pattern
 
 
@@ -54,24 +68,31 @@ fun View.hideKeyboard() {
         ?.hideSoftInputFromWindow(this.windowToken, 0)
 }
 
-fun View.toVisible() {
-    this.visibility = View.VISIBLE
-}
+fun View.gone() = run { visibility = View.GONE }
 
-fun View.toGone() {
-    this.visibility = View.GONE
-}
+fun View.visible() = run { visibility = View.VISIBLE }
 
-fun View.toInvisible() {
-    this.visibility = View.GONE
-}
+fun View.invisible() = run { visibility = View.INVISIBLE }
+
+infix fun View.visibleIf(condition: Boolean) =
+    run { visibility = if (condition) View.VISIBLE else View.GONE }
+
+infix fun View.goneIf(condition: Boolean) =
+    run { visibility = if (condition) View.GONE else View.VISIBLE }
+
+infix fun View.invisibleIf(condition: Boolean) =
+    run { visibility = if (condition) View.INVISIBLE else View.VISIBLE }
 
 
 /**
  * Transforms static java function SnackBar.make() to an extension function on View.
  */
-fun View.showSnackBar(message: String, timeLength: Int) {
-    Snackbar.make(this, message, timeLength).show()
+fun View.snackBar(message: String, duration: Int = Snackbar.LENGTH_LONG) {
+    Snackbar.make(this, message, duration).show()
+}
+
+fun View.snackBar(@StringRes message: Int, duration: Int = Snackbar.LENGTH_LONG) {
+    Snackbar.make(this, message, duration).show()
 }
 
 /**
@@ -87,12 +108,14 @@ fun View.setupSnackBar(
             when (it) {
                 is String -> {
                     hideKeyboard()
-                    showSnackBar(it, timeLength)
+                    snackBar(it, timeLength)
                 }
+
                 is Int -> {
                     hideKeyboard()
-                    showSnackBar(this.context.getString(it), timeLength)
+                    snackBar(this.context.getString(it), timeLength)
                 }
+
                 else -> {
                 }
             }
@@ -112,11 +135,28 @@ fun View.showToast(
                 is String -> Toast.makeText(this.context, it, timeLength).show()
                 is Int -> Toast.makeText(this.context, this.context.getString(it), timeLength)
                     .show()
+
                 else -> {
                 }
             }
         }
     })
+}
+
+fun Fragment.toast(message: String) {
+    Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+}
+
+fun Fragment.toast(@StringRes message: Int) {
+    Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+}
+
+fun Activity.toast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+}
+
+fun Activity.toast(@StringRes message: Int) {
+    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }
 
 /**
@@ -143,7 +183,8 @@ fun ImageView.loadImage(path: String) =
         .placeholder(R.drawable.ic_avatar).error(R.drawable.ic_avatar).into(this)
 
 fun ImageView.loadImageProfile(fileName: String) =
-    Glide.with(this).load(Constants.BASE_URL + fileName).transition(DrawableTransitionOptions.withCrossFade())
+    Glide.with(this).load(Constants.BASE_URL + fileName)
+        .transition(DrawableTransitionOptions.withCrossFade())
         .placeholder(R.drawable.ic_avatar).error(R.drawable.ic_avatar).into(this)
 
 
@@ -157,7 +198,7 @@ fun Context.progressDialog(): Dialog {
     return dialog
 }
 
-fun Activity.imagePicker(startImageResult: ActivityResultLauncher<Intent>){
+fun Activity.imagePicker(startImageResult: ActivityResultLauncher<Intent>) {
     ImagePicker.with(this)
         .crop()
         .maxResultSize(1080, 1080)
@@ -166,7 +207,7 @@ fun Activity.imagePicker(startImageResult: ActivityResultLauncher<Intent>){
         }
 }
 
-fun String.isValidEmailAddress(): Boolean{
+fun String.isValidEmailAddress(): Boolean {
     val emailPattern = Pattern.compile(
         "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
                 "\\@" +
@@ -180,12 +221,12 @@ fun String.isValidEmailAddress(): Boolean{
     return emailPattern.matcher(this).matches()
 }
 
-fun String.isValidName(): Boolean{
+fun String.isValidName(): Boolean {
     val regex = Regex("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*\$")
     return regex.matches(this)
 }
 
-fun String.isValidNumber(): Boolean{
+fun String.isValidNumber(): Boolean {
     val phoneNumberUtil = PhoneNumberUtil.getInstance()
     return try {
         val phoneNumber = phoneNumberUtil.parse(this, null)
@@ -195,11 +236,137 @@ fun String.isValidNumber(): Boolean{
     }
 }
 
-fun Uri.toMultipartData(contentResolver: ContentResolver,name: String): MultipartBody.Part {
+val String.isDigitOnly: Boolean
+    get() = matches(Regex("^\\d*\$"))
+
+val String.isAlphabeticOnly: Boolean
+    get() = matches(Regex("^[a-zA-Z]*\$"))
+
+val String.isAlphanumericOnly: Boolean
+    get() = matches(Regex("^[a-zA-Z\\d]*\$"))
+
+val Any?.isNull get() = this == null
+
+fun Any?.ifNull(block: () -> Unit) = run {
+    if (this == null) {
+        block()
+    }
+}
+
+fun Context.isNetworkAvailable(): Boolean {
+    val manager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val capabilities = manager.getNetworkCapabilities(manager.activeNetwork)
+    return if (capabilities != null) {
+        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+                || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+                || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+    } else false
+}
+
+fun Context.isPermissionGranted(permission: String) = run {
+    ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED
+}
+
+
+fun Uri.toMultipartData(contentResolver: ContentResolver, name: String): MultipartBody.Part {
     val file = File(this.path)
-    val requestFile = RequestBody.create(
-        contentResolver.getType(this)?.toMediaTypeOrNull(),
-        file
-    )
+    val requestFile = file
+        .asRequestBody(contentResolver.getType(this)?.toMediaTypeOrNull())
     return MultipartBody.Part.createFormData(name, file.name, requestFile)
 }
+
+fun String.toDate(format: String = "yyyy-MM-dd HH:mm:ss"): Date? {
+    val dateFormatter = SimpleDateFormat(format, Locale.getDefault())
+    return dateFormatter.parse(this)
+}
+
+fun Date.toStringFormat(format: String = "yyyy-MM-dd HH:mm:ss"): String {
+    val dateFormatter = SimpleDateFormat(format, Locale.getDefault())
+    return dateFormatter.format(this)
+}
+
+fun String.copyToClipboard(context: Context) {
+    val clipboardManager = context.clipboardManager
+    val clip = ClipData.newPlainText("clipboard", this)
+    clipboardManager?.setPrimaryClip(clip)
+}
+
+fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
+
+fun Any?.printToLog(tag: String = "DEBUG_LOG") {
+    Log.e(tag, toString())
+}
+
+/*etName.text = "First name".toEditable()*/
+val EditText.value
+    get() = text?.toString() ?: ""
+
+
+/*startActivity(MainActivity::class.java) // Without Intent modification
+startActivity(MainActivity::class.java) {
+    // You can access the intent object in this block
+    putExtra("key", "value")
+}*/
+fun Activity.startActivity(
+    cls: Class<*>,
+    finishCallingActivity: Boolean = true,
+    block: (Intent.() -> Unit)? = null
+) {
+    val intent = Intent(this, cls)
+    block?.invoke(intent)
+    startActivity(intent)
+    if (finishCallingActivity) finish()
+}
+
+/*val size = screenSize
+val deviceHeight = size.height
+val deviceWidth = size.width*/
+val Context.screenSize: Size
+    get() {
+        val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+
+        val size = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val metrics = windowManager.currentWindowMetrics
+            val windowInsets = metrics.windowInsets
+            val insets: Insets = windowInsets.getInsetsIgnoringVisibility(
+                WindowInsets.Type.navigationBars()
+                        or WindowInsets.Type.displayCutout()
+            )
+
+            val insetsWidth: Int = insets.right + insets.left
+            val insetsHeight: Int = insets.top + insets.bottom
+            val bounds: Rect = metrics.bounds
+            Size(
+                bounds.width() - insetsWidth,
+                bounds.height() - insetsHeight
+            )
+        } else {
+            val displayMetrics = DisplayMetrics()
+            windowManager.defaultDisplay?.getMetrics(displayMetrics)
+            val height = displayMetrics.heightPixels
+            val width = displayMetrics.widthPixels
+            Size(width, height)
+        }
+        return size
+    }
+
+
+/*val manager = downloadManager // In Activity
+val manager = requireContext().downloadManager// In Fragment*/
+val Context.windowManager
+    get() = ContextCompat.getSystemService(this, WindowManager::class.java)
+
+val Context.connectivityManager
+    get() = ContextCompat.getSystemService(this, ConnectivityManager::class.java)
+
+val Context.notificationManager
+    get() = ContextCompat.getSystemService(this, NotificationManager::class.java)
+
+val Context.downloadManager
+    get() = ContextCompat.getSystemService(this, DownloadManager::class.java)
+
+val Context.clipboardManager
+    get() = ContextCompat.getSystemService(
+        this,
+        ClipboardManager::class.java
+    )
