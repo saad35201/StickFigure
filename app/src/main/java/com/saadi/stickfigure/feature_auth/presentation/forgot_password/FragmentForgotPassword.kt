@@ -13,7 +13,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.saadi.stickfigure.databinding.FragmentForgotPasswordBinding
 import com.saadi.stickfigure.feature_auth.domain.model.sign_up.SignUpResponse
-import com.saadi.stickfigure.utils.*
+import com.saadi.stickfigure.utils.Constants
+import com.saadi.stickfigure.utils.NetworkResult
+import com.saadi.stickfigure.utils.observe
+import com.saadi.stickfigure.utils.progressDialog
+import com.saadi.stickfigure.utils.snackBar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,15 +60,17 @@ class FragmentForgotPassword : Fragment() {
         when (networkResult) {
             is NetworkResult.Error -> {
                 networkResult.message?.let {
-                    mBinding.root.showSnackBar(message = it, 3000)
+                    mBinding.root.snackBar(message = it, 3000)
                 }
             }
+
             is NetworkResult.Loading -> {
                 mProgressDialog.show()
             }
+
             is NetworkResult.Success -> {
                 networkResult.data?.let {
-                    it.message?.let { it1 -> mBinding.root.showSnackBar(message = it1, 3000) }
+                    it.message?.let { it1 -> mBinding.root.snackBar(message = it1, 3000) }
                     Handler(Looper.getMainLooper()).postDelayed({
                         findNavController().navigateUp()
                     }, Constants.SPLASH_DELAY.toLong())

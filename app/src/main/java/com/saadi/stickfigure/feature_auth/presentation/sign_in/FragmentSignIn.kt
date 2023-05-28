@@ -10,15 +10,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.saadi.stickfigure.feature_home_drawer.presentation.ActivityHomeBase
 import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.FragmentSignInBinding
 import com.saadi.stickfigure.feature_auth.domain.model.sign_in.SignInRequest
 import com.saadi.stickfigure.feature_auth.domain.model.sign_in.SignInResponse
+import com.saadi.stickfigure.feature_home_drawer.presentation.ActivityHomeBase
 import com.saadi.stickfigure.utils.NetworkResult
 import com.saadi.stickfigure.utils.observe
 import com.saadi.stickfigure.utils.progressDialog
-import com.saadi.stickfigure.utils.showSnackBar
+import com.saadi.stickfigure.utils.snackBar
+import com.saadi.stickfigure.utils.startActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -74,26 +75,27 @@ class FragmentSignIn : Fragment() {
         when (networkResult) {
             is NetworkResult.Error -> {
                 networkResult.message?.let {
-                    mBinding.root.showSnackBar(message = it, 3000)
+                    mBinding.root.snackBar(message = it, 3000)
                 }
             }
+
             is NetworkResult.Loading -> {
                 mProgressDialog.show()
             }
+
             is NetworkResult.Success -> {
                 networkResult.data?.let {
                     //saving data in datastore
                     mSignInVm.saveUser(it.user!!)
                     mSignInVm.saveToken(it.token!!)
-                    if (mBinding.rbRememberMe.isChecked){
+                    if (mBinding.rbRememberMe.isChecked) {
                         mSignInVm.saveIsLoggedIn(isLoggedIn = true)
                         mSignInVm.saveRememberMe(rememberMe = true)
-                    }else{
+                    } else {
                         mSignInVm.saveIsLoggedIn(isLoggedIn = false)
                         mSignInVm.saveRememberMe(rememberMe = false)
                     }
-                    startActivity(Intent(activity, ActivityHomeBase::class.java))
-                    activity?.finish()
+                    activity?.startActivity(ActivityHomeBase::class.java,true)
                 }
             }
         }

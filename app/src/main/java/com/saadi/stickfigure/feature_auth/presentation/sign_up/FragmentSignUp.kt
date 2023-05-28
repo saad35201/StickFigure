@@ -16,12 +16,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.FragmentSignUpBinding
-import com.saadi.stickfigure.feature_auth.domain.model.sign_in.SignInResponse
 import com.saadi.stickfigure.feature_auth.domain.model.sign_up.SignUpRequest
 import com.saadi.stickfigure.feature_auth.domain.model.sign_up.SignUpResponse
-import com.saadi.stickfigure.utils.*
+import com.saadi.stickfigure.utils.Constants
+import com.saadi.stickfigure.utils.NetworkResult
+import com.saadi.stickfigure.utils.imagePicker
+import com.saadi.stickfigure.utils.observe
+import com.saadi.stickfigure.utils.progressDialog
+import com.saadi.stickfigure.utils.snackBar
+import com.saadi.stickfigure.utils.toMultipartData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,15 +48,16 @@ class FragmentSignUp : Fragment() {
                     mBinding.ivProfile.setImageURI(fileUri)
                     profileImageUri = fileUri
                 }
+
                 ImagePicker.RESULT_ERROR -> {
-                    view?.showSnackBar(ImagePicker.getError(data = data),2000)
+                    view?.snackBar(ImagePicker.getError(data = data), 2000)
                 }
+
                 else -> {
-                    view?.showSnackBar("Task Cancelled",2000)
+                    view?.snackBar("Task Cancelled", 2000)
                 }
             }
         }
-
 
 
     override fun onAttach(context: Context) {
@@ -89,7 +94,12 @@ class FragmentSignUp : Fragment() {
         mBinding.btnSignUp.setOnClickListener {
             mSignUpVm.signUp(
                 SignUpRequest(
-                    profilePic = context?.let { it1 -> profileImageUri?.toMultipartData(it1.contentResolver,"profile") },
+                    profilePic = context?.let { it1 ->
+                        profileImageUri?.toMultipartData(
+                            it1.contentResolver,
+                            "profile"
+                        )
+                    },
                     username = mBinding.etUsername.text.toString(),
                     firstName = mBinding.etFirstName.text.toString(),
                     lastName = mBinding.etLastName.text.toString(),
@@ -115,14 +125,16 @@ class FragmentSignUp : Fragment() {
         when (result) {
             is NetworkResult.Error -> {
                 result.message?.let {
-                    mBinding.root.showSnackBar(message = it, 3000)
+                    mBinding.root.snackBar(message = it, 3000)
                 }
             }
+
             is NetworkResult.Loading -> {
                 mProgressDialog.show()
             }
+
             is NetworkResult.Success -> {
-                mBinding.root.showSnackBar(result.data?.message!!,Constants.SPLASH_DELAY)
+                mBinding.root.snackBar(result.data?.message!!, Constants.SPLASH_DELAY)
                 Handler(Looper.getMainLooper()).postDelayed({
                     findNavController().navigateUp()
                 }, Constants.SPLASH_DELAY.toLong())

@@ -1,8 +1,6 @@
 package com.saadi.stickfigure.feature_home_drawer.presentation
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.WindowManager
@@ -23,9 +21,10 @@ import androidx.navigation.ui.setupWithNavController
 import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.ActivityHomeBinding
 import com.saadi.stickfigure.feature_auth.domain.model.sign_in.User
-import com.saadi.stickfigure.feature_auth.presentation.ActivityAuthBase
 import com.saadi.stickfigure.utils.loadImageProfile
 import com.saadi.stickfigure.utils.observe
+import com.saadi.stickfigure.utils.startActivity
+import com.saadi.stickfigure.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -52,23 +51,21 @@ class ActivityHomeBase : AppCompatActivity() {
         }
         setContentView(mBinding.root)
 
+        //drawer config
         setupDrawer()
 
         //cart btn click listener
         mBinding.fabCart.setOnClickListener {
-            Toast.makeText(this@ActivityHomeBase, getString(R.string.cart), Toast.LENGTH_SHORT)
-                .show()
+            this.toast(getString(R.string.cart))
         }
 
         //logout click listener
         mBinding.navViewDrawer.findViewById<TextView>(R.id.tv_logout).setOnClickListener {
             mVmHomeBase.clearDataStore()
             mBinding.drawerLayout.closeDrawers()
-            startActivity(
-                Intent(this@ActivityHomeBase, ActivityAuthBase::class.java)
-                    .putExtra("destinationFragment", R.id.fragmentSignIn)
-            )
-            this@ActivityHomeBase.finish()
+            this.startActivity(ActivityHomeBase::class.java, true) {
+                putExtra("destinationFragment", R.id.fragmentSignIn)
+            }
         }
 
 
@@ -96,12 +93,12 @@ class ActivityHomeBase : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_search -> {
-                Toast.makeText(this, getString(R.string.search), Toast.LENGTH_SHORT).show()
+                this.toast(getString(R.string.search))
                 true
             }
 
             R.id.action_notification -> {
-                Toast.makeText(this, getString(R.string.notification), Toast.LENGTH_SHORT).show()
+                this.toast(getString(R.string.notification))
                 true
             }
 

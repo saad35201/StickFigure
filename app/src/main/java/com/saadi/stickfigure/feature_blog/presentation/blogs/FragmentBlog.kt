@@ -31,16 +31,16 @@ class FragmentBlog : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //getting blog list
         mBlogVm.getBlogList()
-
         observe(mBlogVm.blogLiveData, ::handleBlogData)
 
     }
 
-    private fun handleBlogData(modelBlogs: List<ModelBlog>) {
+    private fun handleBlogData(blogs: List<ModelBlog>) {
 
         mBinding.rvBlog.apply {
-            adapter = BlogAdapter(modelBlogs)
+            adapter = BlogAdapter(blogs)
         }
 
     }
