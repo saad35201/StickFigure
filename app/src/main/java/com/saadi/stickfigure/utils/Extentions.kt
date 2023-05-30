@@ -42,6 +42,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
@@ -189,6 +190,7 @@ fun ImageView.loadImage(@DrawableRes resId: Int) {
 fun ImageView.loadImage(path: String) {
     val requestOptions = RequestOptions()
         .diskCacheStrategy(DiskCacheStrategy.ALL)
+        .priority(Priority.HIGH)
         .placeholder(R.drawable.img_placeholder)
         .error(R.drawable.img_placeholder)
 

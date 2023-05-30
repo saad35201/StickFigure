@@ -72,5 +72,11 @@
         android:id="@+id/fragmentBlogDetail"
         android:name="com.saadi.stickfigure.feature_blog.presentation.blog_detail.FragmentBlogDetail"
         android:label="@string/blog_detail"
-        tools:layout="@layout/fragment_blog_detail" />
+        tools:layout="@layout/fragment_blog_detail" >
+        <argument
+            android:name="blog_obj"
+            app:argType="com.saadi.stickfigure.feature_blog.domain.model.ModelBlog"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

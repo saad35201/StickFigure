@@ -7,11 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.FragmentBlogBinding
 import com.saadi.stickfigure.feature_blog.domain.model.ModelBlog
 import com.saadi.stickfigure.utils.observe
-import com.saadi.stickfigure.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -47,7 +45,8 @@ class FragmentBlog : Fragment(), BlogAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(item: ModelBlog) {
-        findNavController().navigate(R.id.action_fragmentBlog_to_fragmentBlogDetail)
+        val action = FragmentBlogDirections.actionFragmentBlogToFragmentBlogDetail(item)
+        findNavController().navigate(action)
     }
 
 }
