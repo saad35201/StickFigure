@@ -18,6 +18,10 @@ class VmBlog @Inject constructor(
     private val mBlogListLiveData: MutableLiveData<List<ModelBlog>> by lazy { MutableLiveData() }
     val blogLiveData: LiveData<List<ModelBlog>> get() = mBlogListLiveData
 
+    init {
+        getBlogList()
+    }
+
     fun getBlogList() {
         viewModelScope.launch {
             mBlogListLiveData.postValue(useCases.blogs())

@@ -21,6 +21,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.ActivityHomeBinding
 import com.saadi.stickfigure.feature_auth.domain.model.sign_in.User
+import com.saadi.stickfigure.feature_auth.presentation.ActivityAuthBase
 import com.saadi.stickfigure.utils.loadImageProfile
 import com.saadi.stickfigure.utils.observe
 import com.saadi.stickfigure.utils.startActivity
@@ -63,7 +64,7 @@ class ActivityHomeBase : AppCompatActivity() {
         mBinding.navViewDrawer.findViewById<TextView>(R.id.tv_logout).setOnClickListener {
             mVmHomeBase.clearDataStore()
             mBinding.drawerLayout.closeDrawers()
-            this.startActivity(ActivityHomeBase::class.java, true) {
+            this.startActivity(ActivityAuthBase::class.java, true) {
                 putExtra("destinationFragment", R.id.fragmentSignIn)
             }
         }

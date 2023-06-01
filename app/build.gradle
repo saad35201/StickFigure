@@ -128,5 +128,8 @@ dependencies {
     //spin kit
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
 
+    //expandable textview
+    implementation 'io.github.glailton.expandabletextview:expandabletextview:1.0.3'
+
 
 }

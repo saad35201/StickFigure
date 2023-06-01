@@ -36,6 +36,10 @@ class FragmentBlogDetail : Fragment() {
                 tvDate.text = blog.date
                 tvTitle.text = blog.title
                 tvDescription.text = blog.description
+                tvLikesCount.text = blog.likeCount
+                tvDislikesCount.text = blog.disLikeCount
+                tvCommentCount.text = blog.commentCount
+                tvShareCount.text = blog.shareCount
             }
         } ?: run {
             // Handle the case when the blog object is null

@@ -13,7 +13,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_blog"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
+            android:layout_height="@dimen/_180sdp"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_date"
             style="@style/tv_body_black"
-            android:layout_margin="@dimen/_5sdp"
+            android:layout_margin="@dimen/_10sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_blog"
             tools:text="22/07/2023" />
@@ -32,25 +32,151 @@
             android:id="@+id/tv_title"
             style="@style/tv_sub_heading"
             android:layout_width="0dp"
-            android:layout_margin="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:maxLines="2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_date"
             tools:text="This is dummy blog title" />
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <io.github.glailton.expandabletextview.ExpandableTextView
             android:id="@+id/tv_description"
             style="@style/tv_body_gray"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:justificationMode="inter_word"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:animDuration="500"
+            app:collapsedLines="10"
+            app:ellipsizeTextColor="@color/black"
+            app:isExpanded="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            tools:text="@tools:sample/lorem/random" />
+            app:readLessText="Show less"
+            app:readMoreText="Show more"
+            tools:targetApi="o"
+            tools:text="@string/lorem_ipsum" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/app_gray_light"
+            app:layout_constraintEnd_toEndOf="@id/tv_description"
+            app:layout_constraintStart_toStartOf="@id/tv_description"
+            app:layout_constraintTop_toBottomOf="@id/tv_description" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_actions"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_heart"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_heart" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_likes_count"
+                style="@style/tv_body"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:textColor="@color/app_black"
+                app:layout_constraintBottom_toBottomOf="@id/iv_heart"
+                app:layout_constraintStart_toEndOf="@id/iv_heart"
+                app:layout_constraintTop_toTopOf="@id/iv_heart"
+                tools:text="1.5k" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_dislike"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_dislikes_count"
+                app:layout_constraintEnd_toStartOf="@id/tv_dislikes_count"
+                app:layout_constraintTop_toTopOf="@id/tv_dislikes_count"
+                app:srcCompat="@drawable/ic_dislike" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_dislikes_count"
+                style="@style/tv_body"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:textColor="@color/app_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="25" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_comment"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_marginStart="@dimen/_20sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideline"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_comment" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_comment_count"
+                style="@style/tv_body"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:textColor="@color/app_black"
+                app:layout_constraintBottom_toBottomOf="@id/iv_comment"
+                app:layout_constraintStart_toEndOf="@id/iv_comment"
+                app:layout_constraintTop_toTopOf="@id/iv_comment"
+                tools:text="1.5k" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_share"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_share_count"
+                app:layout_constraintEnd_toStartOf="@id/tv_share_count"
+                app:layout_constraintTop_toTopOf="@id/tv_share_count"
+                app:srcCompat="@drawable/ic_share" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_share_count"
+                style="@style/tv_body"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:textColor="@color/app_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="25" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/app_gray_light"
+            app:layout_constraintEnd_toEndOf="@id/tv_description"
+            app:layout_constraintStart_toStartOf="@id/tv_description"
+            app:layout_constraintTop_toBottomOf="@id/cl_actions" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

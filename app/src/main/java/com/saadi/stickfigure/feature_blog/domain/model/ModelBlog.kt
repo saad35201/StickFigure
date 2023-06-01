@@ -9,4 +9,8 @@ data class ModelBlog(
     val date: String? = null,
     val title: String? = null,
     val description: String? = null,
+    val likeCount: String? = null,
+    val disLikeCount: String? = null,
+    val commentCount: String? = null,
+    val shareCount: String? = null,
 ) : Parcelable

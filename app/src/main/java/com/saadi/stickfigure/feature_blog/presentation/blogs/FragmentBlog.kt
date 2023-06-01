@@ -30,8 +30,6 @@ class FragmentBlog : Fragment(), BlogAdapter.OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //getting blog list
-        mBlogVm.getBlogList()
         observe(mBlogVm.blogLiveData, ::handleBlogData)
 
     }
