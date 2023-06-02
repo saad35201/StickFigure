@@ -6,12 +6,12 @@ import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.WindowCompat
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -88,25 +88,21 @@ class ActivityHomeBase : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
-        return true
-    }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        val currentDestination = mNavController.currentDestination?.id
-
-        val hideMenuFor = listOf(
-            R.id.fragmentBlogDetail,
+        val hideMenuItems = listOf(
             R.id.fragmentEditProfile,
+            R.id.fragmentBlogDetail,
+            // Add other child fragment IDs to hide menu items as needed
         )
 
-        menu?.let {
-            for (index in 0 until menu.size()) {
-                val item = menu.getItem(index)
-                item.isVisible = !hideMenuFor.contains(currentDestination)
-            }
-        }
+        val currentDestinationId = mNavController.currentDestination?.id
+        val shouldHideMenuItems = hideMenuItems.contains(currentDestinationId)
 
-        return super.onPrepareOptionsMenu(menu)
+        menu?.findItem(R.id.action_search)?.isVisible = !shouldHideMenuItems
+        menu?.findItem(R.id.action_notification)?.isVisible = !shouldHideMenuItems
+        mBinding.fabCart.isVisible = !shouldHideMenuItems
+
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -132,6 +128,13 @@ class ActivityHomeBase : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.home_nav_host_fragment) as NavHostFragment
         mNavController = navHostFragment.navController
+
+        //nav graph destination listener
+        mNavController.addOnDestinationChangedListener { _, _, _ ->
+            //we will trigger this method whenever destination changes
+            //this method will trigger onCreateOptionsMenu() and in that method we will handle menu visibility
+            invalidateOptionsMenu()
+        }
 
         //setting top level fragment to maintain menu icon for these fragments
         mAppBarConfiguration = AppBarConfiguration(
