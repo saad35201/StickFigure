@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.saadi.stickfigure.R
 import com.saadi.stickfigure.databinding.FragmentBlogDetailBinding
 import com.saadi.stickfigure.utils.loadImage
 
@@ -40,6 +41,7 @@ class FragmentBlogDetail : Fragment() {
                 tvDislikesCount.text = blog.disLikeCount
                 tvCommentCount.text = blog.commentCount
                 tvShareCount.text = blog.shareCount
+                tvComment.text = getString(R.string.dynamic_comment, blog.commentCount)
             }
         } ?: run {
             // Handle the case when the blog object is null

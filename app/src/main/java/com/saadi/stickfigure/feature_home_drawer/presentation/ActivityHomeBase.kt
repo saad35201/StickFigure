@@ -91,6 +91,24 @@ class ActivityHomeBase : AppCompatActivity() {
         return true
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val currentDestination = mNavController.currentDestination?.id
+
+        val hideMenuFor = listOf(
+            R.id.fragmentBlogDetail,
+            R.id.fragmentEditProfile,
+        )
+
+        menu?.let {
+            for (index in 0 until menu.size()) {
+                val item = menu.getItem(index)
+                item.isVisible = !hideMenuFor.contains(currentDestination)
+            }
+        }
+
+        return super.onPrepareOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_search -> {
