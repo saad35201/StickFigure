@@ -57,8 +57,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:readLessText="Show less"
-            app:readMoreText="Show more"
+            app:readLessText="Read less"
+            app:readMoreText="Read more"
             tools:targetApi="o"
             tools:text="@string/lorem_ipsum" />
 
@@ -205,7 +205,6 @@
             android:id="@+id/rv_comments"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
             tools:listitem="@layout/rv_item_comment"
             app:layout_constraintStart_toStartOf="@id/et_comment"
             app:layout_constraintEnd_toEndOf="@id/et_comment"
