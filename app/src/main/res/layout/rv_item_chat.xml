@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/iv_profile"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_margin="@dimen/_10sdp"
+        app:civ_border_color="@color/app_black"
+        app:civ_border_width="@dimen/_1sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_avatar" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_status"
+        android:layout_width="@dimen/_6sdp"
+        android:layout_height="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        app:layout_constraintStart_toEndOf="@id/iv_profile"
+        app:layout_constraintTop_toTopOf="@id/iv_profile"
+        app:srcCompat="@drawable/ic_green_circle" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_chat_name"
+        style="@style/tv_sub_heading"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/iv_profile"
+        app:layout_constraintTop_toTopOf="@id/iv_profile"
+        tools:text="Saad Asad" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_time"
+        style="@style/tv_body_black"
+        android:layout_marginEnd="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_chat_name"
+        app:layout_constraintTop_toTopOf="@id/tv_chat_name"
+        tools:text="11:00 AM" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_last_message"
+        style="@style/tv_body_gray"
+        android:layout_width="0dp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:textStyle="bold"
+        android:maxLines="1"
+        android:ellipsize="end"
+        app:layout_constraintStart_toStartOf="@id/tv_chat_name"
+        app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+        app:layout_constraintEnd_toEndOf="@id/tv_time"
+        app:layout_constraintTop_toBottomOf="@id/tv_chat_name"
+        tools:text="@string/lorem_ipsum" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/_10sdp"
+        android:background="@color/app_gray_light"
+        app:layout_constraintEnd_toEndOf="@id/tv_last_message"
+        app:layout_constraintStart_toStartOf="@id/iv_profile"
+        app:layout_constraintTop_toBottomOf="@id/tv_last_message" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

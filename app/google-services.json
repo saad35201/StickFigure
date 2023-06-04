@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "80024967722",
+    "project_id": "stickfigure-a8856",
+    "storage_bucket": "stickfigure-a8856.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80024967722:android:9fd993186842211f838153",
+        "android_client_info": {
+          "package_name": "com.saadi.stickfigure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80024967722-ll50ij2vp312isnq4765jd09u6h9q0sd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.saadi.stickfigure",
+            "certificate_hash": "02ad81e033f26833ebeb7938b8400095323d9242"
+          }
+        },
+        {
+          "client_id": "80024967722-hcj0dir9d7ot6tf0ovhja0noe4qk2ggc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLYLCFJ1J2xvMqPpBj6dRL5Da8R5zLvVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80024967722-hcj0dir9d7ot6tf0ovhja0noe4qk2ggc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

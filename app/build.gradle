@@ -6,6 +6,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'kotlin-parcelize'
     id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -131,5 +132,8 @@ dependencies {
     //expandable textview
     implementation 'io.github.glailton.expandabletextview:expandabletextview:1.0.3'
 
+    //firebase realtime database
+    implementation 'com.google.firebase:firebase-firestore:24.6.1'
+    implementation 'com.google.firebase:firebase-storage:20.2.0'
 
 }
